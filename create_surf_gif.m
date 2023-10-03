@@ -1,4 +1,4 @@
-%% Create gif of Surf Plots
+%% Function to create gif of Surf Plots
 % credit to ChatGPT
 % edited by Denny
 
@@ -16,6 +16,8 @@ for i = 1:numel(fieldNames)
     
     % Create a new figure for each field
     figure;
+
+    
     
     % Create a surf plot for the data in the current field
     surf(myStruct.(fieldName));
