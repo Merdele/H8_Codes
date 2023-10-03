@@ -1,4 +1,4 @@
-%% This plots netcdf on Map
+%% This plots netcdf on figure Map
 
 %%
 clear
