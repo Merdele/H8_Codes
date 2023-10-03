@@ -7,8 +7,11 @@ clear
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
 load("testing.mat")
-varname=who;
-myStruct = varname{3};
+
+varnames=(['tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
+    'tbb_14','tbb_15','tbb_16',]);
+currentVarValue = evalin('base', varnames);
+myStruct = currentVarValue;
 fieldNames = fieldnames(myStruct);
 frames = cell(1, numel(fieldNames));
 

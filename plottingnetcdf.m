@@ -8,7 +8,13 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 load("testing.mat")
 
-myStruct = tbb_07;
+% hardcoded to list out the names of variables we want to plot.
+varnames={'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
+    'tbb_14','tbb_15','tbb_16'};
+
+for k = 1:length(varnames)
+currentVarValue = evalin('base', varnames{k});
+myStruct = currentVarValue;
 fieldNames = fieldnames(myStruct);
 frames = cell(1, numel(fieldNames));
 
@@ -41,7 +47,7 @@ frames = cell(1, numel(fieldNames));
 % Create the GIF
 for i = 1:numel(frames)
 % Create a GIF from captured frames
-gifFileName = sprintf('Map_plots_for_%s.gif',"tbb_07");
+gifFileName = sprintf('Map_plots_for_%s.gif',varnames{k});
 
 % Set the delay between frames (in seconds)
 frameDelay = 0.5; % Adjust as needed
@@ -55,4 +61,6 @@ frameDelay = 0.5; % Adjust as needed
         imwrite(A, map, gifFileName, 'gif', 'WriteMode', 'append', ...
             'DelayTime', frameDelay);
     end
+end
+
 end
