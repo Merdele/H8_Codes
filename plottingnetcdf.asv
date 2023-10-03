@@ -6,43 +6,11 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-
-%% This Script uses create_surf_gif function to create a gif file to show a 
-% time series of how the data changes
-
-clear
-
 load("testing.mat")
-
-% clear("lat")
-% clear("lon")
-% % add path for the create_aoi_coords function
-% addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
-% 
-% % Get a list of variable names in the workspace
-% variableNames = who;
-% 
-% % Loop through the variable names
-% for i = 1:numel(variableNames)
-%     % Get the current variable name from the list
-%     currentVarName = variableNames{i};
-% 
-%     % Use evalin to retrieve the variable from the workspace
-%     currentVarValue = evalin('base', currentVarName);
-% 
-%     % Call the function with the retrieved variable as an argument
-%     create_surf_gif(currentVarValue, currentVarName);   
-% 
-% end
-
-
-
-% Get the field names from the struct
-% Get the field names from the struct
-VarNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
-    'tbb_14','tbb_15','tbb_16',};
-
-    fieldNames = fieldnames(VarNames{1});
+varname=who;
+myStruct = varname{3};
+fieldNames = fieldnames(myStruct);
+frames = cell(1, numel(fieldNames));
 
     % Loop through the fields and capture frames
     for i = 1:numel(fieldNames)
@@ -58,16 +26,33 @@ VarNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
     shading flat;  % Ensure flat shading for pseudocolor plot
     colormap('jet');  % Set colormap (adjust as needed)
     colorbar;  % Add a colorbar
-    title('NetCDF Data on Map');
+
+    title(['NetCDF Data on Map ',fieldName]);
     xlabel('Longitude');
     ylabel('Latitude');
 
+    % Capture the frame
+    frames{i} = getframe(gcf);
+
     end
-%%
 
-clear
 
-load("testing.mat")
 
-plot_cdf_function(tbb_07)
+% Create the GIF
+for i = 1:numel(frames)
+% Create a GIF from captured frames
+gifFileName = sprintf('Map_plots_for_%s.gif',"tbb_07");
 
+% Set the delay between frames (in seconds)
+frameDelay = 0.5; % Adjust as needed
+
+    im = frame2im(frames{i});
+    [A, map] = rgb2ind(im, 256);
+    if i == 1
+        imwrite(A, map, gifFileName, 'gif', 'Loopcount', inf, ...
+            'DelayTime', frameDelay);
+    else
+        imwrite(A, map, gifFileName, 'gif', 'WriteMode', 'append', ...
+            'DelayTime', frameDelay);
+    end
+end
