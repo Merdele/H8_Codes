@@ -1,5 +1,6 @@
 %% This Script uses create_surf_gif function to create a gif file to show a 
 % time series of how the data changes
+% created by Denny. Last updated 3 October 2023.
 
 clear
 

@@ -1,3 +1,6 @@
+%% Function to plot netcdf data that has been read and saved in .mat files after
+% running readnetcdf.mat
+% created by Denny on 3rd October 2023.
 
 function plot_cdf_function(myStruct)
     % Get the field names from the struct
