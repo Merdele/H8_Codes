@@ -1,4 +1,5 @@
 %% Read and specify netcdf Data and Location and Saves into a .mat file
+% First Step
 % Himawari-9 Data, Downloaded from Jaxa SFPT
 % Reads netcdf file. Specify Data Folder
 % Some netcdf files might not work and an error will be displayed

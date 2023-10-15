@@ -1,4 +1,5 @@
 %% This plots netcdf on figure Map
+% 1.5th step ( to visualise data )
 % Trying to get it to work using function instead but having difficulties
 % created by Denny on 3rd October 2023.
 

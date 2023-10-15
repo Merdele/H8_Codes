@@ -1,5 +1,7 @@
 %% This Script uses create_surf_gif function to create a gif file to show a 
 % time series of how the data changes
+% 1.5th step ( to visualise data )
+% uses create_surf_gif function
 % created by Denny. Last updated 3 October 2023.
 
 clear
@@ -8,6 +10,8 @@ load("testing.mat")
 
 clear("lat")
 clear("lon")
+clear("tbb_08")clear("tbb_08")clear("tbb_15")
+
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
@@ -22,8 +26,11 @@ for i = 1:numel(variableNames)
     % Use evalin to retrieve the variable from the workspace
     currentVarValue = evalin('base', currentVarName);
     
-    % Call the function with the retrieved variable as an argument
-    create_surf_gif(currentVarValue, currentVarName);   
+    % Call the create_surf_gif function with the retrieved variable as an argument
+    %create_surf_gif(currentVarValue, currentVarName);
+
+    % call histoplot function
+    histoplot(currentVarValue,1)
 
 end
 
