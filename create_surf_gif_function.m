@@ -2,7 +2,7 @@
 % credit to ChatGPT
 % edited by Denny
 
-function create_surf_gif (myStruct,gifname)
+function create_surf_gif_function (myStruct,gifname)
 
 % Get the field names from the struct
 fieldNames = fieldnames(myStruct);

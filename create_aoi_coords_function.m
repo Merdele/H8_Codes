@@ -15,7 +15,7 @@
 %% Function starts here.
 
 function [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords(lat_point,lon_point,squareSize,roundingFactor)
+    create_aoi_coords_function(lat_point,lon_point,squareSize,roundingFactor)
 
 % Calculate the coordinates of the four points forming the square
 lat_min = lat_point - squareSize;

@@ -1,6 +1,6 @@
 %% Function to plot histograms for netcdf data
 
-function histoplot(myStruct,binwidth)
+function histoplot_function(myStruct,binwidth)
 
 % Get the field names from the struct
 fieldNames = fieldnames(myStruct);
