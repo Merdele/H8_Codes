@@ -11,10 +11,14 @@ function [results] = performKStest_function(dataStruct)
 
     % Loop through the fields and perform KS tests
     for i = 1:numel(fieldNames)
+
         % Get the data for the current field
+        % (:) changes the netcdf data into a vector to allow kstest
         currentData = dataStruct.(fieldNames{i})(:);
 
         % Perform the KS test to compare the current data to the reference data
+        % can modify to test with other distributions
+        % currently will test first data with itself
         [h, p, kstat] = kstest2(referenceData, currentData);
 
         % Display the results
