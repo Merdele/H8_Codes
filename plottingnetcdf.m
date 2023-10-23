@@ -10,7 +10,7 @@ clear
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
 % CHANGE FILE TO LOAD
-load("Sinabung_20190609_Day.mat")
+load("Sinabung_20190607_Night.mat")
 
 % hardcoded to list out the names of variables I want to plot.
 varnames={'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
@@ -22,7 +22,7 @@ currentVarValue = evalin('base', varnames{k});
 myStruct = currentVarValue;
 fieldNames = fieldnames(myStruct);
 frames = cell(1, numel(fieldNames)); % for gif
-PODed
+
     % Loop through the fields and capture frames
     for i = 1:numel(fieldNames)
     fieldName = fieldNames{i};
@@ -44,6 +44,8 @@ PODed
 
     % Capture the frame
     frames{i} = getframe(gcf);
+
+    
 
     end
 
@@ -67,6 +69,8 @@ PODed
                 'DelayTime', frameDelay);
         end
     end
+
+    close all
 
 end
 

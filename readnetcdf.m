@@ -21,7 +21,7 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 % CHANGE FILENAME ON LINE 23 and OUTPUT NAME ON LINE 93 BEFORE RUNNING
 
 % specifies the data folder
-Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_20190609_Day';
+Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_20190607_Night';
 S = dir(fullfile(Data_Folder,'NC*.nc'));
 %% This Section Loops and saves the data in a .mat file
 
@@ -91,7 +91,7 @@ for i = 1:length(S)
 end
 
 % specify which variables to be saved depending on what is to be read.
-save("Sinabung_20190609_Day.mat","lat","lon","tbb_07","tbb_08","tbb_09"...
+save("Sinabung_20190607_Night.mat","lat","lon","tbb_07","tbb_08","tbb_09"...
     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16")
 
 %%
