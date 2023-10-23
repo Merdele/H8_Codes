@@ -14,11 +14,14 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
+% CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
     create_aoi_coords_function(3.17,98.392,0.5,0.5);
 
+% CHANGE FILENAME ON LINE 23 and OUTPUT NAME ON LINE 93 BEFORE RUNNING
+
 % specifies the data folder
-Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_20190609_Night';
+Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_20190609_Day';
 S = dir(fullfile(Data_Folder,'NC*.nc'));
 %% This Section Loops and saves the data in a .mat file
 
@@ -88,7 +91,7 @@ for i = 1:length(S)
 end
 
 % specify which variables to be saved depending on what is to be read.
-save("Sinabung_20190609_Night.mat","lat","lon","tbb_07","tbb_08","tbb_09"...
+save("Sinabung_20190609_Day.mat","lat","lon","tbb_07","tbb_08","tbb_09"...
     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16")
 
 %%
