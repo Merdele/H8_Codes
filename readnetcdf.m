@@ -15,10 +15,10 @@ clear
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
 [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords(-7.540718,110.445723,0.5,0.5);
+    create_aoi_coords_function(3.17,98.392,0.5,0.5);
 
 % specifies the data folder
-Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Merapi_20230311';
+Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_20190609_Night';
 S = dir(fullfile(Data_Folder,'NC*.nc'));
 %% This Section Loops and saves the data in a .mat file
 
@@ -88,7 +88,7 @@ for i = 1:length(S)
 end
 
 % specify which variables to be saved depending on what is to be read.
-save("testing.mat","lat","lon","tbb_07","tbb_08","tbb_09"...
+save("Sinabung_20190609_Night.mat","lat","lon","tbb_07","tbb_08","tbb_09"...
     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16")
 
 %%

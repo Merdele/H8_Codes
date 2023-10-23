@@ -9,7 +9,7 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-load("testing.mat")
+load("Sinabung_20190609_Night.mat")
 
 % hardcoded to list out the names of variables I want to plot.
 varnames={'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
