@@ -40,7 +40,6 @@ S = dir(fullfile(Data_Folder,'NC*.nc'));
 %% This Section Loops and saves the data in a .mat file
 
 % ncdisp to see information
-
 % loops to read and load the netcdf data
 for i = 1:length(S)
     try
