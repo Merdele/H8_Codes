@@ -10,7 +10,7 @@ clear
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
 % CHANGE FILE TO LOAD
-load("Sinabung_20190607_Night.mat")
+load("Sinabung_20190604_Night.mat")
 
 % hardcoded to list out the names of variables I want to plot.
 varnames={'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
