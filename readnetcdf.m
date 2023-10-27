@@ -14,23 +14,23 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-%---------Config to change--------
+%------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = '03';
+DD = '06';
 DayNight = 'Night';
+
+% CHANGE COORDINATES FOR DIFFERENT VOLCANOES
+[lat_min, lat_max, lon_min,lon_max] = ...
+    create_aoi_coords_function(3.17,98.392,0.5,0.5);
+
+% ----------------------------------------------------
 
 Data_Folder = ...
 ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
 Volcano,'_',YYYYMM,DD,'_',DayNight];
 
 cd(Data_Folder)
-
-% CHANGE COORDINATES FOR DIFFERENT VOLCANOES
-[lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords_function(3.17,98.392,0.5,0.5);
-
-% CHANGE FILENAME ON LINE 23 and OUTPUT NAME ON LINE 93 BEFORE RUNNING
 
 % specifies the data folder
 %Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_20190604_Night';

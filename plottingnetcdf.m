@@ -9,8 +9,24 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-% CHANGE FILE TO LOAD
-load("Sinabung_20190604_Night.mat")
+%------------------------Config to change--------------------
+Volcano = 'Sinabung';
+YYYYMM = '201906';
+DD = '06';
+DayNight = 'Night';
+
+% CHANGE COORDINATES FOR DIFFERENT VOLCANOES
+[lat_min, lat_max, lon_min,lon_max] = ...
+    create_aoi_coords_function(3.17,98.392,0.5,0.5);
+
+% -----------------------------------------------------------
+matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
+% check if file exists
+if exist (matfilename, 'file')
+    load (matfilename)
+else
+    error ('File does not exist!')
+end
 
 % hardcoded to list out the names of variables I want to plot.
 varnames={'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
