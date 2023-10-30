@@ -17,7 +17,7 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = '06';
+DD = '02';
 DayNight = 'Night';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES

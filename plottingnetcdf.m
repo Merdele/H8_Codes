@@ -12,7 +12,7 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %------------------------Config to change--------------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = '06';
+DD = '04';
 DayNight = 'Night';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
@@ -29,9 +29,9 @@ else
 end
 
 % hardcoded to list out the names of variables I want to plot.
-varnames={'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
+varnames={'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13'...
     'tbb_14','tbb_15','tbb_16'};
-
+%'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
 for k = 1:length(varnames)
 
 currentVarValue = evalin('base', varnames{k});
@@ -52,6 +52,10 @@ frames = cell(1, numel(fieldNames)); % for gif
     pcolor(lon_grid, lat_grid, data);
     shading flat;  % Ensure flat shading for pseudocolor plot
     colormap('jet');  % Set colormap (adjust as needed)
+
+    % Define the colorbar limits (adjust the values as needed)
+    clim([200, 300]);
+
     colorbar;  % Add a colorbar
 
     title(['NetCDF Data on Map ',fieldName]);
