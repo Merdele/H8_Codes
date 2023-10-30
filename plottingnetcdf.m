@@ -54,7 +54,7 @@ frames = cell(1, numel(fieldNames)); % for gif
     colormap('jet');  % Set colormap (adjust as needed)
 
     % Define the colorbar limits (adjust the values as needed)
-    clim([200, 300]);
+    %clim([200, 300]);
 
     colorbar;  % Add a colorbar
 
