@@ -17,9 +17,7 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = '02';
-DayNight = 'Night';
-AOI='Small';
+DD = '09';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
@@ -27,9 +25,13 @@ AOI='Small';
 
 % ----------------------------------------------------
 
+
+
+
+
 Data_Folder = ...
-['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
-Volcano,'_',YYYYMM,DD,'_',DayNight];
+['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Cloud_product/',...
+Volcano,'_',YYYYMM,DD];
 
 cd(Data_Folder)
 
@@ -67,35 +69,16 @@ for i = 1:length(S)
     
     % indexing only the data within the AOI 
     % only one value for lat and lon because they are a X x 1 vector
-    lat.(time_of_data_collection(1,:))= ...
+    cloudlat.(time_of_data_collection(1,:))= ...
         ncread(inFile,'latitude',lat_max_index,lat_min_index-lat_max_index);
-    lon.(time_of_data_collection(1,:))= ...
+    cloudlon.(time_of_data_collection(1,:))= ...
         ncread(inFile,'longitude',lon_min_index,lon_max_index-lon_min_index);
 
-    %fulltbb_07.(time_of_data_collection(1,:))=ncread(inFile,'tbb_07');
-    tbb_07.(time_of_data_collection(1,:))=ncread(inFile,'tbb_07',start,count);
-    tbb_08.(time_of_data_collection(1,:))=ncread(inFile,'tbb_08',start,count);
-    tbb_09.(time_of_data_collection(1,:))=ncread(inFile,'tbb_09',start,count);
-    tbb_10.(time_of_data_collection(1,:))=ncread(inFile,'tbb_10',start,count);
-    tbb_11.(time_of_data_collection(1,:))=ncread(inFile,'tbb_11',start,count);
-    tbb_12.(time_of_data_collection(1,:))=ncread(inFile,'tbb_10',start,count);
-    tbb_13.(time_of_data_collection(1,:))=ncread(inFile,'tbb_11',start,count);
-    tbb_14.(time_of_data_collection(1,:))=ncread(inFile,'tbb_14',start,count);
-    tbb_15.(time_of_data_collection(1,:))=ncread(inFile,'tbb_15',start,count);
-    tbb_16.(time_of_data_collection(1,:))=ncread(inFile,'tbb_16',start,count);
 
-    % OTHER PARAMETERS THAT YOU CAN CHOOSE TO LOAD
-    % band_id.(time_of_data_collection(1,:))=ncread(inFile,'band_id');
-    % start_time.(time_of_data_collection(1,:))=ncread(inFile,'start_time');
-    % end_time.(time_of_data_collection(1,:))=ncread(inFile,'end_time');
-    % geom_para.(time_of_data_collection(1,:))=ncread(inFile,...
-    %     'geometry_parameters');
-    % alb_01.(time_of_data_collection(1,:))=ncread(inFile,'albedo_01');
-    % alb_02.(time_of_data_collection(1,:))=ncread(inFile,'albedo_02');
-    % alb_04.(time_of_data_collection(1,:))=ncread(inFile,'albedo_04');
-    % alb_05.(time_of_data_collection(1,:))=ncread(inFile,'albedo_05');
-    % alb_06.(time_of_data_collection(1,:))=ncread(inFile,'albedo_06');
-    % hour.(time_of_data_collection(1,:))=ncread(inFile,'Hour');
+    %fulltbb_07.(time_of_data_collection(1,:))=ncread(inFile,'tbb_07');
+    CLTYPE.(time_of_data_collection(1,:))=ncread(inFile,'CLTYPE',start,count);
+
+    
 
     catch
         fprintf('Error reading file %s\n', S(i).name);
@@ -104,30 +87,13 @@ for i = 1:length(S)
 
 end
 
-matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_',AOI,'.mat'];
-
-% specify which variables to be saved depending on what is to be read.
-save(matfilename,"lat","lon","tbb_07","tbb_08","tbb_09"...
-    ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16")
 
 %%
-% figure
-% surf(tbb_07.NC_H09_20230720_0010)
-% title('band 7')
-% figure
-% surf(tbb_14.NC_H09_20230720_0010)
-% title('band 14')
-% figure
-% surf(tbb_15.NC_H09_20230720_0010)
-% title('band 15')
-%% 
+CLTYPE = resample_data_function(CLTYPE,75);
 
-% format bank
-% 
-% roundingFactor = 0.05;
-% 
-% %lat.(time_of_data_collection(1,:))
-% ans=roundingFactor * ...
-%             round(lat.(time_of_data_collection(1,:)) / roundingFactor);
-% 
+matfilename = [Volcano,'_',YYYYMM,DD,'_cloud','.mat'];
+
+% specify which variables to be saved depending on what is to be read.
+save(matfilename,"cloudlat","cloudlon","CLTYPE")
+
 

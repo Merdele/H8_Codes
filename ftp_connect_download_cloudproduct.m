@@ -12,20 +12,19 @@
 %---------Config to change--------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = {'03'};
-DayNight = 'Night';
-Cloud = 'Yes'; % Yes or No to change to cloud download
+DD = {'01','02','04','05','06','07','08','09'};
+
 
 for k = 1:length(DD)
 
 % for IR data
 destination_folder = ...
-['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
-Volcano,'_',YYYYMM,DD{k},'_',DayNight];
+['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Cloud_Product/',...
+Volcano,'_',YYYYMM,DD{k},];
 
 
 mkdir (destination_folder)
-% cd (destination_folder)
+cd (destination_folder)
 
 %---------------------------------
 
@@ -41,9 +40,12 @@ ftpPassword = 'SP+wari8';
 ftpObj = ftp(ftpServer, ftpUser, ftpPassword);
 
 
-% cd to desired path in the ftp
+HH = {'09','10','11','12','13','14','15','16','17','18','19','20','21'...
+    '22',};
 
-cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{k}]);
+for j = 1:length(HH)
+% cd to desired path in the ftp
+cd(ftpObj, ['/pub/himawari/L2/CLP/010/',YYYYMM,'/',DD{k},'/',HH{j}]);
 
 
 % hardcoded the times of which will allow me to download the files
@@ -57,18 +59,14 @@ cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{k}]);
 %     '2100','2110','2120','2130','2140','2150',...
 %     '2200','2210','2220','2230','2240','2250','2300'};
 
-daytime = {'0800','0810','0820','0830','0840','0850',...
-    '0900','0910','0920','0930','0940','0950',...
-    '1000','1010','1020','1030','1040','1050','1000'};
+mm = {'00','10','20','30','40','50'};
 
-
-
-for i = 1:length(nighttime)
+for i = 1:length(mm)
     try
         % Note some files will be NC_H09 instead for Himawari-9 Data
     files_to_download_date = ['NC_H08_',YYYYMM,DD{k},'_']; %'NC_H08_20190604_';  
-    files_to_download_time = nighttime{i};
-    files_to_download_end = '_R21_FLDK.06001_06001.nc';
+    files_to_download_time = [HH{j},mm{i}];
+    files_to_download_end = '_L2CLP010_FLDK.02401_02401.nc';
     filename=[files_to_download_date,files_to_download_time,files_to_download_end];
     
     mget(ftpObj,filename,destination_folder);
@@ -77,6 +75,8 @@ for i = 1:length(nighttime)
         fprintf('Error reading file %s\n', filename);
         continue;
     end
+
+end
 
 end
 
