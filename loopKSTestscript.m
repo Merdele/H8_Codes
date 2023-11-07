@@ -24,7 +24,7 @@ matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 cd([Data_Folder,foldername])
 
 % check if file exists
-if exist ([Data_Folder,foldername,'/',matfilename], 'file')
+if exist ([Data_Folder,foldername,'/',matfilename], 'file') 
     load (matfilename)
 else
     error ('File does not exist!')

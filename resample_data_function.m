@@ -12,7 +12,8 @@ function resampledStruct = resample_data_function(inputStruct, newSize)
         originalData = inputStruct.(fieldName);
         
         % Create X and Y coordinates for the new grid
-        [xq, yq] = meshgrid(linspace(1, size(originalData, 1), newSize), linspace(1, size(originalData, 2), newSize));
+        [xq, yq] = meshgrid(linspace(1, size(originalData, 1), newSize), ...
+            linspace(1, size(originalData, 2), newSize));
         
         % Create X and Y coordinates for the original data
         [xx, yy] = meshgrid(1:size(originalData, 1), 1:size(originalData, 2));
