@@ -1,4 +1,4 @@
-function [results] = performKStest_function(dataStruct)
+function [results] = performKStest_function(dataStruct,name)
     % Get a list of field names in the struct
     fieldNames = fieldnames(dataStruct);
 
@@ -50,7 +50,33 @@ function [results] = performKStest_function(dataStruct)
         results(i).Test = h;
         results(i).PValue = p;
         results(i).Kstat = kstat;
+
+        % Create a plot to visualize the cumulative distribution functions of the two data sets
+        [ecdf1, x1] = ecdf(referenceData);
+        [ecdf2, x2] = ecdf(currentData);
         
+        figure;
+        plot(x1, ecdf1, 'b', 'LineWidth', 2);
+        hold on;
+        plot(x2, ecdf2, 'r', 'LineWidth', 2);
+        legend('First Data', 'Second Data','Location','best');
+        xlabel('X-axis Label');
+        ylabel('CDF Value');
+        old_title = sprintf('%s_KS-Test between %s and %s',...
+            name,fieldNames{i},fieldNames{i+1});
+        new_title = strrep(old_title,'_',' ');
+        title(new_title)
+        % title(sprintf('%s_KS-Test between %s and %s',...
+        %     name,fieldNames{i},fieldNames{i+1}));
+
+        % Save the figure as an image file (e.g., PNG)
+        % fig_filename = sprintf('%s_ks_test_between %s and %s.png',...
+        %     name,fieldNames{i},fieldNames{i+1});
+        fig_filename = ([new_title,'.png']);
+        saveas(gcf, fig_filename);
+
+        close
+                
         % if h == 1
         %     fprintf('The null hypothesis is rejected; the two datasets have different distributions.\n');
         % else

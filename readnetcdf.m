@@ -14,18 +14,18 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-%------------------------Config to change-------------
+%% ------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
 DD = '02';
 DayNight = 'Night';
-AOI='Small';
+%AOI='Small';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords_function(3.17,98.392,0.5,0.5);
+    create_aoi_coords_function(3.17,98.392,0.05,0.02);
 
-% ----------------------------------------------------
+%% ----------------------------------------------------
 
 Data_Folder = ...
 ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
@@ -56,10 +56,18 @@ for i = 1:length(S)
 
     % Finding the indexes of the latitude and longitude at the corners of
     % the AOI from the .nc file
-    lat_min_index = find(fulllat.(time_of_data_collection(1,:)) == lat_min);
-    lat_max_index = find(fulllat.(time_of_data_collection(1,:)) == lat_max);
-    lon_min_index = find(fulllon.(time_of_data_collection(1,:)) == lon_min);
-    lon_max_index = find(fulllon.(time_of_data_collection(1,:)) == lon_max);
+   
+    lat_condition = (fulllat.(time_of_data_collection(1,:)) >= lat_min - 0.01) & ...
+        (fulllat.(time_of_data_collection(1,:)) <= lat_max + 0.01);
+
+    lat_min_index = find(lat_condition,1,'last');
+    lat_max_index = find(lat_condition,1,'first');
+
+    lon_condition = (fulllon.(time_of_data_collection(1,:)) >= lon_min - 0.01) & ...
+        (fulllon.(time_of_data_collection(1,:)) <= lon_max + 0.01);
+
+    lon_min_index = find(lat_condition,1,'first');
+    lon_max_index = find(lat_condition,1,'last');
 
     % creating the starting index and number of cells to be read
     start = [lat_max_index lon_min_index];
@@ -104,7 +112,9 @@ for i = 1:length(S)
 
 end
 
-matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_',AOI,'.mat'];
+%%
+
+matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
 % specify which variables to be saved depending on what is to be read.
 save(matfilename,"lat","lon","tbb_07","tbb_08","tbb_09"...

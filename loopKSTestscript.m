@@ -53,14 +53,14 @@ for i = 1:numel(variableNames)
     %histoplot(currentVarValue,1)
 
     KSTestResults.(variableNames{i}) = ...
-        performKStest_function(currentVarValue); % [variableNames{2},'_KSTest']
+        performKStest_function(currentVarValue,currentVarName   ); % [variableNames{2},'_KSTest']
 
     end
 
 end
 
-
-ksfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'KSTest.mat'];
-
-% specify which variables to be saved depending on what is to be read.
-save(ksfilename,"KSTestResults")
+% %%
+% ksfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'KSTest.mat'];
+% 
+% % specify which variables to be saved depending on what is to be read.
+% save(ksfilename,"KSTestResults")
