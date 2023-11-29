@@ -25,10 +25,6 @@ DD = '09';
 
 % ----------------------------------------------------
 
-
-
-
-
 Data_Folder = ...
 ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Cloud_product/',...
 Volcano,'_',YYYYMM,DD];

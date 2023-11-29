@@ -12,20 +12,19 @@
 %---------Config to change--------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = {'03'};
+DD = '09';
 DayNight = 'Night';
-Cloud = 'Yes'; % Yes or No to change to cloud download
 
-for k = 1:length(DD)
+%for k = 1:length(DD)
 
 % for IR data
 destination_folder = ...
-['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
-Volcano,'_',YYYYMM,DD{k},'_',DayNight];
+(['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
+Volcano,'_',YYYYMM,DD,'_',DayNight]);
 
 
-mkdir (destination_folder)
-% cd (destination_folder)
+%mkdir (destination_folder)
+ cd (destination_folder)
 
 %---------------------------------
 
@@ -43,7 +42,7 @@ ftpObj = ftp(ftpServer, ftpUser, ftpPassword);
 
 % cd to desired path in the ftp
 
-cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{k}]);
+cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD]);
 
 
 % hardcoded the times of which will allow me to download the files
@@ -57,16 +56,23 @@ cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{k}]);
 %     '2100','2110','2120','2130','2140','2150',...
 %     '2200','2210','2220','2230','2240','2250','2300'};
 
-daytime = {'0800','0810','0820','0830','0840','0850',...
-    '0900','0910','0920','0930','0940','0950',...
-    '1000','1010','1020','1030','1040','1050','1000'};
+nighttime = {'1710','1720','1730','1740','1750',...
+    '1800','1810','1820','1830','1840','1850',...
+    '1900','1910','1920','1930','1940','1950',...
+    '2000','2010','2020','2030','2040','2050',...
+    '2100','2110','2120','2130','2140','2150',...
+    '2200','2210','2220','2230','2240','2250','2300'};
+
+% daytime = {'0800','0810','0820','0830','0840','0850',...
+%     '0900','0910','0920','0930','0940','0950',...
+%     '1000','1010','1020','1030','1040','1050','1000'};
 
 
 
 for i = 1:length(nighttime)
     try
         % Note some files will be NC_H09 instead for Himawari-9 Data
-    files_to_download_date = ['NC_H08_',YYYYMM,DD{k},'_']; %'NC_H08_20190604_';  
+    files_to_download_date = ['NC_H08_',YYYYMM,DD,'_']; %'NC_H08_20190604_';  
     files_to_download_time = nighttime{i};
     files_to_download_end = '_R21_FLDK.06001_06001.nc';
     filename=[files_to_download_date,files_to_download_time,files_to_download_end];
@@ -80,6 +86,6 @@ for i = 1:length(nighttime)
 
 end
 
-end
+
 
 fprintf('Download Complete\n')

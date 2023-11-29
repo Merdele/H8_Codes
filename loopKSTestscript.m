@@ -9,29 +9,30 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 Data_Folder = ...
-'/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/';
+'/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 %------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = '09';
+DD = '02';
 DayNight = 'Night';
 
 %------------------------------------------------------
-foldername = [Volcano,'_',YYYYMM,DD,'_',DayNight];
+foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight];
 matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
-cd([Data_Folder,foldername])
-
 % check if file exists
-if exist ([Data_Folder,foldername,'/',matfilename], 'file') 
-    load (matfilename)
-else
+if exist ([Data_Folder,foldername,'/',matfilename], 'file') == 0
     error ('File does not exist!')
 end
 
+load([Data_Folder,foldername,'/',matfilename])
+
 clear("lat")
 clear("lon")
+
+mkdir([Data_Folder,foldername,'/KSTest'])
+cd([Data_Folder,foldername,'/KSTest'])
 %%
 
 % Get a list of variable names in the workspace

@@ -3,6 +3,8 @@
 
 clear
 
+addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
+
 %------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
@@ -10,15 +12,20 @@ DD = '09';
 DayNight = 'Night';
 
 %------------------------Config to change-------------
+Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/',...
+Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
 
 
 filetoLoad = ([Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat']);
 
-load(filetoLoad)
+load([Output_Folder,filetoLoad])
 
 variableNames = who;
 
-for p = 8:length(variableNames)
+%%
+
+% 9 is hardcoded
+for p = 9:length(variableNames)
 
 % indexes out the variableName (which will be the tbb)
 % 8 is hardcoded for the length of the variablename. HAVE TO CHANGE IT if
@@ -37,11 +44,12 @@ fieldName = fieldnames(myStruct);
 
 % takes the first fieldname(which corresponds to the hour, 00 mins to start
 % the stacking of tha data
-stackedmatrix = myStruct.(fieldName{1});
+%stackedmatrix = myStruct.(fieldName{1});
 
 % hardcoded the hours that I want the data to stack.
 % 14 meaning the data collected within between 1400 and 1459 will be
 % stacked together
+%hours = {'08','09','10','11'};
 hours = {'14','15','16','17','18','19','20','21','22','23'};
 
 for i = 1:length(hours)
@@ -62,26 +70,29 @@ for i = 1:length(hours)
         % it will not stop the code.
         try
 
+        newfieldname = ([currentVarName,sprintf('_NC_H08_20190609_%s',hours{i})]);
+
         % saves the first time of the hour to start the stacking process
-        stackedmatrix = myStruct.(hour_fieldname{1});
+        stackedmatrix.(newfieldname) = myStruct.(hour_fieldname{1});
 
         for j = 2:length(hour_fieldname)
 
         % loops for the number of data collected within an hour and stacks
         % it in the stackedmatrix
-        stackedmatrix = cat(3,stackedmatrix,myStruct.(hour_fieldname{j}));
+        stackedmatrix.(newfieldname) = ...
+            cat(3,stackedmatrix.(newfieldname),myStruct.(hour_fieldname{j}));
 
         end
 
         % creating new field names, differentiated by the hour, to save out
-        %put as structs
-        newfieldname = ([currentVarName,sprintf('_NC_H08_20190609_%s',hours{i})]);
+        % put as structs
+        %newfieldname = ([currentVarName,sprintf('_NC_H08_20190608_%s',hours{i})]);
 
         % calculates the median for each hour 
-        all_median.(newfieldname) = median(stackedmatrix,3);
+        all_median.(newfieldname) = median(stackedmatrix.(newfieldname),3);
 
         % clears stackedmatrix for the next loop for the next hour.
-        clear('stackedmatrix')
+        %clear('stackedmatrix')
 
         catch
 
@@ -96,9 +107,11 @@ end
 % creating median file name. 
 medianfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_Median.mat'];
 
-% specify which variables to be saved depending on what is to be read.
-save(medianfilename,"all_median")
+stackedfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_Stacked.mat'];
 
+% specify which variables to be saved depending on what is to be read.
+save([Output_Folder,medianfilename],'all_median')
+save([Output_Folder,stackedfilename],'stackedmatrix')
 
 %%
 %tbb_07_medianMatrix. = median(stackedmatrix,3);

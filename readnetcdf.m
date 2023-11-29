@@ -17,19 +17,24 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %% ------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = '02';
+DD = '09';
 DayNight = 'Night';
 %AOI='Small';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords_function(3.17,98.392,0.05,0.02);
+    create_aoi_coords_function(3.170479,98.391995,0.07,0.02);
 
 %% ----------------------------------------------------
 
 Data_Folder = ...
 ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
 Volcano,'_',YYYYMM,DD,'_',DayNight];
+
+Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/',...
+Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
+
+mkdir(Output_Folder)
 
 cd(Data_Folder)
 
@@ -117,27 +122,7 @@ end
 matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
 % specify which variables to be saved depending on what is to be read.
-save(matfilename,"lat","lon","tbb_07","tbb_08","tbb_09"...
+save([Output_Folder,matfilename],"lat","lon","tbb_07","tbb_08","tbb_09"...
     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16")
 
-%%
-% figure
-% surf(tbb_07.NC_H09_20230720_0010)
-% title('band 7')
-% figure
-% surf(tbb_14.NC_H09_20230720_0010)
-% title('band 14')
-% figure
-% surf(tbb_15.NC_H09_20230720_0010)
-% title('band 15')
-%% 
-
-% format bank
-% 
-% roundingFactor = 0.05;
-% 
-% %lat.(time_of_data_collection(1,:))
-% ans=roundingFactor * ...
-%             round(lat.(time_of_data_collection(1,:)) / roundingFactor);
-% 
 

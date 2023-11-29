@@ -2,7 +2,23 @@
 % DEM was cropped in qGIS
 % holes in the DEM were interpolated 
 
-[original_dem,R] = readgeoraster('n03_e098_1arc_v3_cropped_gdalfill.tif',"OutputType","double");
+clear
+
+addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
+
+Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/DEM/Sinabung/';
+
+DEMFileName = 'n03_e098_1arc_v3_gdalfill.tif';
+
+DEMfiletoread = ([Data_Folder,DEMFileName]);
+
+if exist (DEMfiletoread, 'file') == 0
+    error ('File does not exist!')
+end
+
+%%
+
+[original_dem,R] = readgeoraster(DEMfiletoread,"OutputType","double");
 
 % original_dem = double(imread('n03_e098_1arc_v3_cropped_gdalfill.tif'));
 
@@ -11,7 +27,7 @@
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords_function(3.17,98.392,0.5,0.5);
+    create_aoi_coords_function(3.170479,98.391995,0.07,0.02);
 
 %%
 
@@ -20,22 +36,26 @@ new_lat_limits = [lat_min, lat_max];  % Replace with your desired latitude limit
 new_lon_limits = [lon_min, lon_max];  % Replace with your desired longitude limits
 
 % Calculate the new raster reference object based on the new bounding box
-new_R = maprasterref('LatitudeLimits', new_lat_limits, 'LongitudeLimits', new_lon_limits, ...
-    'RasterSize', size(original_dem));
+% new_R = maprefcells('LatitudeLimits', new_lat_limits, 'LongitudeLimits', ...
+%     new_lon_limits, 'RasterSize', size(original_dem));
+
+
 
 % Crop the original DEM to the area of interest
-cropped_dem = mapcrop(original_dem, R, new_lat_limits, new_lon_limits);
+[cropped_dem,cropped_R] = geocrop(original_dem, R, new_lat_limits, new_lon_limits);
 
-% Define the new size for the resampled DEM
-new_size = [75, 75];  % Replace with your desired dimensions
+% Resize the cropped DEM 
+[resized_dem,resized_R] = georesize(cropped_dem,cropped_R,1/72.125);
 
-% Resample the cropped DEM to the desired size
-resampled_dem = imresize(cropped_dem, new_size);
+%%
+figure
+geoshow(cropped_dem,cropped_R,'DisplayType','texturemap')
 
-% Display the resampled DEM
-figure;
-mapshow(resampled_dem, new_R);
-title('Resampled DEM');
+figure
+geoshow(resized_dem,resized_R,'DisplayType','texturemap')
+geoshow(all_median.tbb_07_NC_H08_20190609_14,resized_R,'DisplayType','texturemap')
 
-% Optionally, save the resampled DEM to a new GeoTIFF file
-geotiffwrite('resampled_dem.tif', resampled_dem, new_R);
+% %% Save the cropped and resampled DEM to a new GeoTIFF file
+% geotiffwrite('cropped_dem.tif', cropped_dem, cropped_R);
+% 
+% geotiffwrite('resampled_dem.tif', resized_dem, resized_R);
