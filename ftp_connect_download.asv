@@ -12,7 +12,7 @@
 %---------Config to change--------
 Volcano = 'Taal';
 YYYYMM = '202001';
-DD = '13';
+DD = '10';
 DayNight = 'Night';
 
 %for k = 1:length(DD)

@@ -10,7 +10,7 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = '04';
+DD = '02';
 DayNight = 'Night';
 
 %------------------------------------------------------
@@ -36,16 +36,14 @@ matfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',matfilename]);
 load(matfiletoread)
 %load(stackfiletoread)
 
-mkdir([Matfile_Data_Folder,foldername,'/Boxcharthours'])
-cd([Matfile_Data_Folder,foldername,'/Boxcharthours'])
+mkdir([Matfile_Data_Folder,foldername,'/BoxWholeNight'])
+cd([Matfile_Data_Folder,foldername,'/BoxWholeNight'])
 
 %%
 
 variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
     'tbb_13','tbb_14','tbb_15','tbb_16'};
 
-hours = {'14','15','16','17','18','19','20','21','22','23'};
-%%
 for k = 1:length(variableNames)
 
 currentVarName = variableNames{k};
@@ -54,21 +52,9 @@ currentVarValue = evalin('base', currentVarName);
 
 myStruct = currentVarValue;
 
-tbb_fieldName = fieldnames(myStruct);
+fieldName = fieldnames(myStruct);
 
-for L = 1:length(hours)
 
-hour_to_index = hours{L};
-
-    % creates the character array that i want to to compare from each field
-    % the hour will be the identifier
-    containsName = (['NC_H08_',YYYYMM,DD,'_',hour_to_index]);
-   
-    % uses contain to get the logical index of where the 
-    hour_idx = contains(tbb_fieldName,containsName);
-
-    % indexes the fieldnames that is specified by the hour
-    fieldName = tbb_fieldName(hour_idx);
 
 NWData = [];
 NData = [];
@@ -167,7 +153,7 @@ nexttile(subplot_positions(8))
 boxchart(SEData)
 title([strrep(variableNames{k},'_',' '),' SE'])
 
-fig_filename = ([strrep(variableNames{k},'_',' '),' ',hours{L},'H boxcharts.png']);
+fig_filename = ([strrep(variableNames{k},'_',' '),' boxcharts.png']);
 saveas(gcf, fig_filename);
 close
 
@@ -175,4 +161,3 @@ close
 
 end
 
-end
