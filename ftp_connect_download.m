@@ -12,15 +12,16 @@
 %---------Config to change--------
 Volcano = 'Taal';
 YYYYMM = '202001';
-DD = '13';
+DD = {'09','14','15'};
+
 DayNight = 'Night';
 
-%for k = 1:length(DD)
+for k = 1:length(DD)
 
 % for IR data
 destination_folder = ...
 (['/Users/Shared/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
-Volcano,'_',YYYYMM,DD,'_',DayNight]);
+Volcano,'_',YYYYMM,DD{k},'_',DayNight]);
 
 
  mkdir (destination_folder)
@@ -42,7 +43,7 @@ ftpObj = ftp(ftpServer, ftpUser, ftpPassword);
 
 % cd to desired path in the ftp
 
-cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD]);
+cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{k}]);
 
 
 % % hardcoded the times of which will allow me to download the files
@@ -55,6 +56,7 @@ cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD]);
 %     '2000','2010','2020','2030','2040','2050',...
 %     '2100','2110','2120','2130','2140','2150',...
 %     '2200','2210','2220','2230','2240','2250','2300'};
+
 
 nighttime = {'1300','1310','1320','1330','1340','1350',...
     '1400','1410','1420','1430','1440','1450',...
@@ -76,7 +78,7 @@ nighttime = {'1300','1310','1320','1330','1340','1350',...
 for i = 1:length(nighttime)
     try
         % Note some files will be NC_H09 instead for Himawari-9 Data
-    files_to_download_date = ['NC_H08_',YYYYMM,DD,'_']; %'NC_H08_20190604_';  
+    files_to_download_date = ['NC_H08_',YYYYMM,DD{k},'_']; %'NC_H08_20190604_';  
     files_to_download_time = nighttime{i};
     files_to_download_end = '_R21_FLDK.06001_06001.nc';
     filename=[files_to_download_date,files_to_download_time,files_to_download_end];
@@ -90,6 +92,6 @@ for i = 1:length(nighttime)
 
 end
 
-
+end
 
 fprintf('Download Complete\n')

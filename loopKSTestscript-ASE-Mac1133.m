@@ -2,19 +2,20 @@
 %% This Script uses create_surf_gif function to create a gif file to show a 
 % time series of how the data changes
 % 1.5th step ( to visualise data )
+% uses create_surf_gif function
 % created by Denny. Last updated 3 October 2023.
 
 clear
 
 % add path for the create_aoi_coords function
-addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
+addpath '/Users/Shared/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 Data_Folder = ...
-'/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
+'/Users/Shared/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 %------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = '09';
+DD = '08';
 DayNight = 'Night';
 
 %------------------------------------------------------

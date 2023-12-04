@@ -15,15 +15,15 @@ clear
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
 %% ------------------------Config to change-------------
-Volcano = 'Sinabung';
-YYYYMM = '201906';
-DD = '09';
+Volcano = 'Taal';
+YYYYMM = '202001';
+DD = '11';
 DayNight = 'Night';
 %AOI='Small';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords_function(3.170479,98.391995,0.07,0.02);
+    create_aoi_coords_function(14.011253,120.997691,0.07,0.02);
 
 %% ----------------------------------------------------
 

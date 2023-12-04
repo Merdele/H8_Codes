@@ -21,18 +21,22 @@ function [results] = performKStest_function(dataStruct,name)
     for i = 1:numel(fieldNames)-1
 
         % Define the reference dataset (e.g., the dataset you want to compare against)
-        mean_referenceData = mean(dataStruct.(fieldNames{i})(:));
-        sd_referenceData = std(dataStruct.(fieldNames{i})(:));
-        referenceData = (dataStruct.(fieldNames{i})(:) ...
-            - mean_referenceData)/ sd_referenceData;
+        % mean_referenceData = mean(dataStruct.(fieldNames{i})(:));
+        % sd_referenceData = std(dataStruct.(fieldNames{i})(:));
+        % referenceData = (dataStruct.(fieldNames{i})(:) ...
+        %     - mean_referenceData)/ sd_referenceData;
+
+        referenceData = (dataStruct.(fieldNames{i})(:));
             
 
         % Get the data for the current field
         % (:) changes the netcdf data into a vector to allow kstest
-        mean_currentData = mean(dataStruct.(fieldNames{i+1})(:));
-        sd_currentData = std(dataStruct.(fieldNames{i+1})(:));
-        currentData = (dataStruct.(fieldNames{i+1})(:) ...
-            - mean_currentData)/ sd_currentData;
+        % mean_currentData = mean(dataStruct.(fieldNames{i+1})(:));
+        % sd_currentData = std(dataStruct.(fieldNames{i+1})(:));
+        % currentData = (dataStruct.(fieldNames{i+1})(:) ...
+        %     - mean_currentData)/ sd_currentData;
+
+        currentData = (dataStruct.(fieldNames{i+1})(:));
 
         % Perform the KS test to compare the current data to the reference data
         % can modify to test with other distributions

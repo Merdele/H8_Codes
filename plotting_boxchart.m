@@ -4,25 +4,25 @@
 
 clear
 
-addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
+addpath '/Users/Shared/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
 %------------------------Config to change-------------
 
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = '04';
+DD = '06';
 DayNight = 'Night';
 
 %------------------------------------------------------
 
 %DEM_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/DEM/Sinabung/';
 
-Matfile_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
+Matfile_Data_Folder = '/Users/Shared/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 %DEMFileName = 'resampled_dem.tif';
 
 foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight];
-matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
+matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_BTD.mat'];
 %matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_Median.mat'];
 %stackfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_Stacked.mat'];
 
@@ -36,8 +36,8 @@ matfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',matfilename]);
 load(matfiletoread)
 %load(stackfiletoread)
 
-mkdir([Matfile_Data_Folder,foldername,'/Boxcharthours'])
-cd([Matfile_Data_Folder,foldername,'/Boxcharthours'])
+%mkdir([Matfile_Data_Folder,foldername,'/BoxcharthoursBTD'])
+cd([Matfile_Data_Folder,foldername,'/BoxcharthoursBTD'])
 
 %%
 
