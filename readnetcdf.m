@@ -10,20 +10,21 @@
 % it then loads the data using a dir() to get the names of all the netcdf
 % files in the Data Folder
 clear
-
+                
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
 %% ------------------------Config to change-------------
-Volcano = 'Taal';
-YYYYMM = '202001';
-DD = '11';
-DayNight = 'Night';
+Volcano = 'Marapi';
+YYYYMM = '202312';
+DD = '03';
+DayNight = 'Day';
 %AOI='Small';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords_function(14.011253,120.997691,0.07,0.02);
+    create_aoi_coords_function(-0.391642,100.457107,0.04,0.02);
+
 
 %% ----------------------------------------------------
 
@@ -34,7 +35,7 @@ Volcano,'_',YYYYMM,DD,'_',DayNight];
 Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/',...
 Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
 
-mkdir(Output_Folder)
+%mkdir(Output_Folder)
 
 cd(Data_Folder)
 
