@@ -17,7 +17,7 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %% ------------------------Config to change-------------
 Volcano = 'Marapi';
 YYYYMM = '202312';
-DD = '03';
+DD = '05';
 DayNight = 'Day';
 %AOI='Small';
 
@@ -35,7 +35,7 @@ Volcano,'_',YYYYMM,DD,'_',DayNight];
 Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/',...
 Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
 
-%mkdir(Output_Folder)
+mkdir(Output_Folder)
 
 cd(Data_Folder)
 
@@ -123,7 +123,7 @@ end
 matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
 % specify which variables to be saved depending on what is to be read.
-save([Output_Folder,matfilename],"lat","lon","tbb_07","tbb_08","tbb_09"...
-    ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16")
+% save([Output_Folder,matfilename],"lat","lon","tbb_07","tbb_08","tbb_09"...
+%     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16")
 
 

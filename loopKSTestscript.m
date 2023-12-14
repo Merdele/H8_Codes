@@ -31,9 +31,9 @@ load([Data_Folder,foldername,'/',matfilename])
 clear("lat")
 clear("lon")
 
-mkdir([Data_Folder,foldername,'/KSTestBTD'])
-cd([Data_Folder,foldername,'/KSTestBTD'])
-%%
+% mkdir([Data_Folder,foldername,'/KSTestBTD'])
+% cd([Data_Folder,foldername,'/KSTestBTD'])
+%% This section performs the consecutive KStest for every data collection time. 
 
 % Get a list of variable names in the workspace
 variableNames = who;
@@ -65,3 +65,4 @@ end
 % 
 % % specify which variables to be saved depending on what is to be read.
 % save(ksfilename,"KSTestResults")
+

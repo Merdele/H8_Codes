@@ -1,3 +1,10 @@
+%% This function performs KS test for datastruct with each field containing 
+% data at a different collection time.
+% e.g. if the struct has A, B, C data, the KS test will be performed for
+% A&B, B&C so on and so forth. 
+% second input "name" is to save the file name as the name of the struct. 
+% see loopKSTestscript for example
+
 function [results] = performKStest_function(dataStruct,name)
     % Get a list of field names in the struct
     fieldNames = fieldnames(dataStruct);
