@@ -10,7 +10,7 @@
 % lat_min = -8.5500
 % lat_max = -6.5000
 % lon_min = 109.4000
-% lonmax = 111.4500
+% lon_max = 111.4500
 
 %% Function starts here.
 

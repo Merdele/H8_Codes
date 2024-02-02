@@ -1,6 +1,10 @@
 %% The script plots the temperature against elevation
+% Plots the BTD data against a resampled DEM file, downloaded from the USGS
+% website. 
+% Gaps in the DEM was first filled using QGIS and GDALfill. THe filled DEM
+% was then resampled to match the pixel size of the BTD data.
 
-%% Load the data
+%% This section loads the data
 
 clear
 
@@ -8,10 +12,10 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 %------------------------Config to change-------------
 
-Volcano = 'Marapi';
-YYYYMM = '202312';
-DD = '05';
-DayNight = 'Day';
+Volcano = 'Sinabung';
+YYYYMM = '201906';
+DD = '09';
+DayNight = 'Night';
 
 %------------------------------------------------------
 
@@ -20,36 +24,37 @@ DEM_Data_Folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4
 Matfile_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 DEMFileName = '/resampled_dem.tif';
+
 %%
 
-
-
-foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight];
-tbbfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
-btdfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_BTD.mat'];
+% creating filenames
+%foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight];
+foldername = [Volcano,'_2019'];
+% tbbfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
+% btdfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_BTD.mat'];
+NTBfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_NTB.mat'];
 %stackfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_Stacked.mat'];
 
-
-
+% combining filenames and paths
 DEMfiletoread = ([DEM_Data_Folder,DEMFileName]);
-btdfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',btdfilename]);
-tbbfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',tbbfilename]);
+% btdfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',btdfilename]);
+% tbbfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',tbbfilename]);
+NTBfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',NTBfilename]);
 %stackfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',stackfilename]);
 
 [DEM,R] = readgeoraster(DEMfiletoread,"OutputType","double");
-load(btdfiletoread)
-load(tbbfiletoread)
+% load(btdfiletoread)
+% load(tbbfiletoread)
+load(NTBfiletoread)
 %load(stackfiletoread)
 
-mkdir([Matfile_Data_Folder,foldername,'/','DEMvsTBB_Night'])
-cd([Matfile_Data_Folder,foldername,'/DEMvsTBB_Night'])
+mkdir([Matfile_Data_Folder,foldername,'/','DEMvsNTB_Night'])
+cd([Matfile_Data_Folder,foldername,'/DEMvsNTB_Night'])
 
 %%
-
-
-variableNames = {'tbb_13_15','tbb_7_13','tbb_13_14','tbb_14_15','tbb_07',...
-    'tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
-    'tbb_13','tbb_14','tbb_15','tbb_16'};
+variableNames = {'NTB'};%,...
+    % 'tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
+    % 'tbb_13','tbb_14','tbb_15','tbb_16'};
 
 for k = 1:length(variableNames)
 
@@ -61,20 +66,28 @@ myStruct = currentVarValue;
 
 fieldName = fieldnames(myStruct);
 
-%%
+%% This section combines the data in the structs into a single variable.
+% the combined data can be controlled for now by looking at the the
+% fieldName 
 
 xData = [];
 yData = [];
 
-for i = 36:length(fieldName)
+for i = 1:length(fieldName)
 data = myStruct.(fieldName{i});
 
-xData = [xData;DEM(:)];
+% repeatedly combines the DEM values. Position of the DEM values
+% corresponds to the positions of the data values.
+xData = [xData;DEM(:)]; 
 yData = [yData;data(:)];
+
 end
+yData = yData-273;
 
+greater_than_18_index = yData >=18;
 
-
+yData = yData(greater_than_18_index);
+xData = xData(greater_than_18_index);
 %%
 
 % Perform least squares fit (linear fit in this case)
@@ -91,17 +104,22 @@ scatter(xData, yData);
 fitLine = polyval(coefficients, xData);
 plot(xData, fitLine, 'r-', 'LineWidth', 2);
 
-% Customize the plot
+% % Plot the linear fit line
+% xFit = linspace(min(xData), max(xData), 100);
+% yFit = predict(mdl, xFit');
+% plot(xFit, yFit, 'r-', 'LineWidth', 2, 'DisplayName', 'Linear Fit');
+
 % Customize the plot
 title('Scatter Plot of Temperature vs Elevation');
 xlabel('Elevation');
-ylabel('Brightness Temperature');
-legend('Scatter Plot', 'Least Squares Fit');
+ylabel('Brightness Temperature (Celsius)');
+legend('Scatter Plot', 'Least Squares Fit','Location','best');
 
 hold off;
 
-fig_filename = ([strrep(variableNames{k},'_',' '),' TempvsElev_Night.png']);
-saveas(gcf, fig_filename);
-close
+% fig_filename = ([strrep(variableNames{k},'_',' '),' TempvsElev_0400.png']);
+% saveas(gcf, fig_filename);
+% close
 
 end
+

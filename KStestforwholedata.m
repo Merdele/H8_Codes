@@ -1,5 +1,6 @@
-%% This section performs the KS test for a whole day's worth of Data
-% between two consecutive days. E.g. before_variableNames{i};
+%% This Script performs the KS test for a whole day's worth of Data
+% between two consecutive days worth of data that was downloaded. To check
+% what timing of data has been downloaded, open the tbb_13_15 files
 
 clear
 
@@ -80,8 +81,6 @@ for i = 1:length(before_variableNames)
 
     afterfieldName = fieldnames(afterStruct);
 
-
-
     for j = 1:length(beforefieldName)-1
 
     beforeCat = vertcat(beforeStruct.(beforefieldName{j}),...
@@ -138,10 +137,10 @@ for i = 1:length(before_variableNames)
         % Save the figure as an image file (e.g., PNG)
         % fig_filename = sprintf('%s_ks_test_between %s and %s.png',...
         %     name,fieldNames{i},fieldNames{i+1});
-        % fig_filename = ([new_title,'.png']);
-        % saveas(gcf, fig_filename);
+        fig_filename = ([new_title,'.png']);
+        saveas(gcf, fig_filename);
 
-        %close
+        close
 
 
 end

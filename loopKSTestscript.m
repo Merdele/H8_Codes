@@ -1,7 +1,6 @@
-
-%% This Script uses create_surf_gif function to create a gif file to show a 
-% time series of how the data changes
-% 1.5th step ( to visualise data )
+%% This Script uses perform_KSTEST function to save plots of KS Test  
+% KS test are performed for the intervals of the data downloaded
+% E.g. 1400 and 1410. 1410 and 1420
 % created by Denny. Last updated 3 October 2023.
 
 clear
@@ -60,7 +59,8 @@ for i = 1:numel(variableNames)
 
 end
 
-% %%
+%% This section saves the KS tests results in a .matfile
+
 % ksfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'KSTest.mat'];
 % 
 % % specify which variables to be saved depending on what is to be read.

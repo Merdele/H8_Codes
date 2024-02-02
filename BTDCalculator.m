@@ -8,10 +8,10 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 %------------------------Config to change-------------
 
-Volcano = 'Sinabung';
-YYYYMM = '201906';
-DD = '02';
-DayNight = 'Night';
+Volcano = 'Marapi';
+YYYYMM = '202312';
+DD = '03';
+DayNight = 'Day';
 
 %------------------------------------------------------
 
@@ -32,13 +32,17 @@ cd([Matfile_Data_Folder,foldername])
 
 %%
 
-tbb_13_15 = BTD_calculator_function(tbb_13,tbb_15);
+BTD_13_15 = BTD_calculator_function(tbb_13,tbb_15);
 
-tbb_7_13 = BTD_calculator_function(tbb_07,tbb_13);
+BTD_7_13 = BTD_calculator_function(tbb_07,tbb_13);
 
-tbb_13_14 = BTD_calculator_function(tbb_13,tbb_14);
+BTD_13_14 = BTD_calculator_function(tbb_13,tbb_14);
 
-tbb_14_15 = BTD_calculator_function(tbb_14,tbb_15);
+BTD_14_15 = BTD_calculator_function(tbb_14,tbb_15);
+
+ratio_14_15 = BTD_ratio_function(tbb_14,tbb_15);
+
+% tbb_14_15_ratio = BTD_ratio_function
 
 
 %% creating median file name. 
@@ -46,5 +50,5 @@ BTDfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_BTD.mat'];
 
 
 % specify which variables to be saved depending on what is to be read.
-save([Matfile_Data_Folder,'/',foldername,'/',BTDfilename],'tbb_13_15',...
-    'tbb_7_13','tbb_13_14','tbb_14_15')
+save([Matfile_Data_Folder,'/',foldername,'/',BTDfilename],'BTD_13_15',...
+    'BTD_7_13','BTD_13_14','BTD_14_15','ratio_14_15')

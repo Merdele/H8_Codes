@@ -2,6 +2,7 @@
 % DEM was cropped in qGIS
 % holes in the DEM were interpolated 
 
+%% This section loads the data
 clear
 
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
@@ -17,7 +18,7 @@ if exist (DEMfiletoread, 'file') == 0
 end
 
 cd(Data_Folder)
-%%
+%% This section crops and resamples the DEM
 
 [original_dem,R] = readgeoraster(DEMfiletoread,"OutputType","double");
 
@@ -25,8 +26,9 @@ cd(Data_Folder)
 
 %[original_dem,R] = readgeoraster('n03_e098_1arc_v3_cropped_gdalfill.tif');
 
-
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
+% running the create_aoi_coords_function to obtain the coordinates of the
+% boundary
 [lat_min, lat_max, lon_min,lon_max] = ...
     create_aoi_coords_function(-0.391642,100.457107,0.04,0.02);
 
@@ -46,9 +48,12 @@ new_lon_limits = [lon_min, lon_max];  % Replace with your desired longitude limi
 [cropped_dem,cropped_R] = geocrop(original_dem, R, new_lat_limits, new_lon_limits);
 
 % Resize the cropped DEM
+% The number 1/XXXX is determined mathematically by dividing the resolution
+% of the cropped DEM size by the size of the BTD data that is needed
 [resized_dem,resized_R] = georesize(cropped_dem,cropped_R,1/24.2);
 
-%%
+%% This section plots the different DEMs in figures for comparisons
+
 figure
 geoshow(original_dem,R,'DisplayType','texturemap')
 
@@ -59,7 +64,8 @@ figure
 geoshow(resized_dem,resized_R,'DisplayType','texturemap')
 %geoshow(all_median.tbb_07_NC_H08_20190609_14,resized_R,'DisplayType','texturemap')
 
-%% Save the cropped and resampled DEM to a new GeoTIFF file
+%% Save the cropped and resampled DEM to a new GeoTIFF file in the PWD
+
 geotiffwrite('cropped_dem.tif', cropped_dem, cropped_R);
 
 geotiffwrite('resampled_dem.tif', resized_dem, resized_R);
