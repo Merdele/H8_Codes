@@ -8,8 +8,6 @@ clear
 
 % ------------------------Config to change-------------
 Volcano = 'Marapi';
-YYYYMM = '202311';
-DD = '03';
 DayNight = 'Day';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
@@ -28,7 +26,9 @@ FILE_NAME = 'MOD11_L2.A2023305.0325.061.2023307190626.hdf';
 
 file_to_read = ([Data_folder,FILE_NAME]);
 
-info = hdfinfo(file_to_read);
+%info = hdfinfo(file_to_read);
+% Inside info, will tell you what are the variable names that can be read. 
+% info > Vgroups > Vgroups > SDS
 
 lst_original = double(hdfread(file_to_read,'LST','Fields','ImageData'))*0.02;
 
@@ -78,15 +78,16 @@ dateObj = datetime(YYYY, 1, 1) + caldays(DDD - 1);
 MM = month(dateObj);
 unformattedDD = day(dateObj);
 
+% reformats DD to have a leading 0 in the case where the day is a single
+% digit
 DD = sprintf('%02d', unformattedDD);
 
 YYYYMM = [FILE_NAME(11:14),num2str(MM)];
 
-
 Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Processed_Data/',...
 Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
 
-mkdir(Output_Folder)
+%mkdir(Output_Folder)
 cd(Output_Folder)
 
 matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
