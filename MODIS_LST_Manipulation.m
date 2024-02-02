@@ -1,4 +1,7 @@
-%%
+%% This script resamples the latlon information of the MODIS data to math the 
+% size of the LST data
+% The area of interest is saved in a matfile.
+% created by Denny on 2 Feb 2024.
 
 %% This section loads the data
 clear
@@ -20,15 +23,18 @@ DayNight = 'Day';
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
+Data_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Raw_Data/Merapi_202312/';
 FILE_NAME = 'MOD11_L2.A2023305.0325.061.2023307190626.hdf';
 
-info = hdfinfo(FILE_NAME);
+file_to_read = ([Data_folder,FILE_NAME]);
 
-lst = double(hdfread(FILE_NAME,'LST','Fields','ImageData'))*0.02;
+info = hdfinfo(file_to_read);
 
-lat = hdfread(FILE_NAME,'Latitude','Fields','ImageData');
+lst_original = double(hdfread(file_to_read,'LST','Fields','ImageData'))*0.02;
 
-lon = hdfread(FILE_NAME,'Longitude','Fields','ImageData');
+lat_original = hdfread(file_to_read,'Latitude','Fields','ImageData');
+
+lon_original = hdfread(file_to_read,'Longitude','Fields','ImageData');
 
 %% This section resamples the latlon data to match the size of the LST data
 
@@ -36,8 +42,8 @@ lon = hdfread(FILE_NAME,'Longitude','Fields','ImageData');
 % lat and lon are 406x271 matrices, and lstData is a 2030x1354 matrix
 
 % Create a grid for the higher resolution LST data
-[lonGrid, latGrid] = meshgrid(linspace(min(lon(:)), max(lon(:)), size(lst, 2)), ...
-                              linspace(min(lat(:)), max(lat(:)), size(lst, 1)));
+[lonGrid, latGrid] = meshgrid(linspace(min(lon_original(:)), max(lon_original(:)), size(lst_original, 2)), ...
+                              linspace(min(lat_original(:)), max(lat_original(:)), size(lst_original, 1)));
 
 lat_resized = flipud(latGrid(:,1));
 lon_resized = lonGrid(1,:);
@@ -57,10 +63,9 @@ lat_max_index = find(lat_condition,1,'first');
 lon_min_index = find(lon_condition,1,'first');
 lon_max_index = find(lon_condition,1,'last');
 
-
-lat_aoi = lat_resized(lat_condition);
-lon_aoi = lon_resized(lon_condition);
-lst_aoi = lst(lat_condition,lon_condition);
+lat = lat_resized(lat_condition);
+lon = lon_resized(lon_condition);
+LST = lst_original(lat_condition,lon_condition);
 
 %% This section saves the data
 
@@ -71,31 +76,20 @@ dateObj = datetime(YYYY, 1, 1) + caldays(DDD - 1);
 
 % Extract month and day
 MM = month(dateObj);
-DD = day(dateObj);
+unformattedDD = day(dateObj);
 
-formattedDD = sprintf('%02d', DD);
+DD = sprintf('%02d', unformattedDD);
 
 YYYYMM = [FILE_NAME(11:14),num2str(MM)];
 
 
 Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Processed_Data/',...
-Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,formattedDD,'_',DayNight,'/'];
+Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
 
-%%
 mkdir(Output_Folder)
+cd(Output_Folder)
 
 matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
 % specify which variables to be saved depending on what is to be read.
-save([Output_Folder,matfilename],"lat","lon","tbb_07","tbb_08","tbb_09"...
-    ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
-    "SOA","SAA","SOZ");
-
-
-
-
-
-
-
-
-
+save([Output_Folder,matfilename],"lat","lon","LST");
