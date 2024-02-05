@@ -15,9 +15,9 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 %% ------------------------Config to change-------------
 Volcano = 'Marapi';
-YYYYMM = '202312';
-DD = '03';
-DayNight = 'Day';
+YYYYMM = '202311';
+DD = '18';
+DayNight = 'Night';
 
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES

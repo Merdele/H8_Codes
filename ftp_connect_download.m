@@ -12,28 +12,30 @@
 %---------Config to change--------
 % Change the details for the specific event - the file directory will be
 % saved according to the following variables
-Volcano = 'Taal';
-YYYYMM = '202001';
-DD = '12';
+Volcano = 'Marapi';
+YYYYMM = '202311';
+DD = {'18','19'};
 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
 %     '26','27','28','29','30','31'};
 
+% Marapi UTC +7
+
 % only important for when downloading Day time and Night time acquisitions
 % separately 
-DayNight = 'Day';
+DayNight = 'Night';
 
 
-destination_folder = ...
-(['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
-Volcano,'_',YYYYMM,DD,'_',DayNight]);
-
-%destination_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
-
-
-mkdir (destination_folder)
-cd (destination_folder)
+% destination_folder = ...
+% (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
+% Volcano,'_',YYYYMM,DD{j},'_',DayNight]);
+% 
+% %destination_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
+% 
+% 
+% mkdir (destination_folder)
+% cd (destination_folder)
 
 %---------------------------------
 
@@ -49,18 +51,28 @@ ftpPassword = 'SP+wari8';
 ftpObj = ftp(ftpServer, ftpUser, ftpPassword);
 
 for j = 1:length(DD)
+
+destination_folder = ...
+(['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
+Volcano,'_',YYYYMM,DD{j},'_',DayNight]);
+
+%destination_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
+
+
+mkdir (destination_folder)
+cd (destination_folder)    
+
 % cd to desired path in the ftp
-cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD]);
+cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{j}]);
 
 
 % hardcoded the times of which will allow me to download the files
 % times are in UTC
-time = {'0500','0510','0520','0530','0540','0550',...
-     '0600','0610','0620','0630','0640','0650',...
-     '0700','0710','0720','0730','0740','0750'...
-     '0800','0810','0820','0830','0840','0850',...
-     '0900','0910','0920','0930','0940','0950',...
-     '1000'};
+time = {'1800','1810','1820','1830','1840','1850',...
+     '1900','1910','1920','1930','1940','1950',...
+     '2000','2010','2020','2030','2040','2050',...
+     '2100','2110','2120','2130','2140','2150',...
+     '2200'};
      
 
     % {'0000','0010','0020','0030','0040','0050',...
@@ -92,7 +104,7 @@ time = {'0500','0510','0520','0530','0540','0550',...
 for i = 1:length(time)
     try
         % Note some files will be NC_H09 instead for Himawari-9 Data
-    files_to_download_date = ['NC_H08_',YYYYMM,DD,'_']; %'NC_H08_20190604_';  
+    files_to_download_date = ['NC_H09_',YYYYMM,DD{j},'_']; %'NC_H08_20190604_';  
     files_to_download_time = time{i};
     files_to_download_end = '_R21_FLDK.06001_06001.nc';
     filename=[files_to_download_date,files_to_download_time,files_to_download_end];
