@@ -58,7 +58,7 @@ cd([Matfile_Data_Folder,foldername])
 variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
     'tbb_13','tbb_14','tbb_15','tbb_16',};
 
-    for k = 1:length(variableNames)
+    for k = 3%1:length(variableNames)
 
         % Get the current variable name from the list
         VarName = variableNames{k};
@@ -104,23 +104,23 @@ variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
 
         tbb07_pcolor = [tbb07_pcolor,dataDAY];
 
-        tbb08_pcolor = [tbb08_pcolor,dataDAY];
+        pclrplot.(variableNames{k}) = tbb07_pcolor;
 
-        tbb09_pcolor = [tbb09_pcolor,dataDAY];
-
-        tbb10_pcolor = [tbb10_pcolor,dataDAY];
-
-        tbb11_pcolor = [tbb11_pcolor,dataDAY];
-
-        tbb12_pcolor = [tbb12_pcolor,dataDAY];
-
-        tbb13_pcolor = [tbb13_pcolor,dataDAY];
-
-        tbb14_pcolor = [tbb14_pcolor,dataDAY];
-
-        tbb15_pcolor = [tbb15_pcolor,dataDAY];
-
-        tbb16_pcolor = [tbb16_pcolor,dataDAY];
+        % tbb09_pcolor = [tbb09_pcolor,dataDAY];
+        % 
+        % tbb10_pcolor = [tbb10_pcolor,dataDAY];
+        % 
+        % tbb11_pcolor = [tbb11_pcolor,dataDAY];
+        % 
+        % tbb12_pcolor = [tbb12_pcolor,dataDAY];
+        % 
+        % tbb13_pcolor = [tbb13_pcolor,dataDAY];
+        % 
+        % tbb14_pcolor = [tbb14_pcolor,dataDAY];
+        % 
+        % tbb15_pcolor = [tbb15_pcolor,dataDAY];
+        % 
+        % tbb16_pcolor = [tbb16_pcolor,dataDAY];
 
         dataDAY = [];
 

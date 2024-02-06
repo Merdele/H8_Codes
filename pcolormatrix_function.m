@@ -1,7 +1,9 @@
 %% Function to create a matrix for Pcolor plot
 
 
-function Output = pcolormatrix_function(VarName,i)
+function Output = pcolormatrix_function(VarName,YYYYMM,day)
+
+dataDAY = [];
 
 % Get the current variable name from the list
         
@@ -23,7 +25,7 @@ function Output = pcolormatrix_function(VarName,i)
 
                 hour_to_index = hours{j};
 
-                containsName = (['NC_H09_',YYYYMM,DD{i},'_',hour_to_index]);
+                containsName = (['NC_H09_',YYYYMM,day,'_',hour_to_index]);
                
                 % this section accounts for missing data and puts 0 in its
                 % place
@@ -42,8 +44,8 @@ function Output = pcolormatrix_function(VarName,i)
 
             end
 
-            Output = dataDay;
+            Output = dataDAY;
 
-
+            
 
 end
