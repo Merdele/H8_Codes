@@ -12,9 +12,11 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 % Change the details for the specific event - the file directory will be
 % saved according to the following variables
 Volcano = 'Marapi';
-YYYYMM = '202311';
-DD = {'18','19','20','21','22','23','24','25',...
-    '26','27','28','29','30'};
+YYYYMM = '202312';
+DD = {'01','02'};
+    
+%'18','19','20','21','22','23','24','25',...
+    %'26','27','28','29','30'};
 % 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
