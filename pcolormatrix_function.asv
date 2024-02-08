@@ -6,7 +6,7 @@
 % day = DD{i};
 % 
 % data_07 = pcolormatrix_function('tbb_07',YYYYMM,day);
-% Created by Denny on 6 Feb 2024
+
 
 function Output = pcolormatrix_function(VarName,YYYYMM,day)
 
