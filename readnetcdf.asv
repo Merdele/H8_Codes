@@ -16,7 +16,7 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %% ------------------------Config to change-------------
 Volcano = 'Marapi';
 YYYYMM = '202311';
-DD = '15';
+DD = '0';
 DayNight = 'Night';
 
 
@@ -60,7 +60,7 @@ S = dir(fullfile(Data_Folder,'NC*.nc'));
 
 
 % loops to read and load the netcdf data
-for i = 1:2%:length(S)
+for i = 1:length(S)
     try
     % creates the string of the .nc file to be read
     inFile=[S(i).folder,'/',S(i).name];
@@ -142,7 +142,7 @@ end
 
 %%
 
-matfilename = [Volcano,'_',YYYYMM,DD,'_0300_',DayNight,'.mat'];
+matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
 % specify which variables to be saved depending on what is to be read.
 save([Output_Folder,matfilename],"lat","lon","tbb_07","tbb_08","tbb_09"...

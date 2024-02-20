@@ -3,12 +3,15 @@
 % The area of interest is saved in a matfile.
 % created by Denny on 2 Feb 2024.
 
+% add path for the create_aoi_coords function
+addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
+
 %% This section loads the data
 clear
 
 % ------------------------Config to change-------------
 Volcano = 'Marapi';
-DayNight = 'Day';
+DayNight = 'Night';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
@@ -18,13 +21,21 @@ DayNight = 'Day';
 %Sinabung(3.170479,98.391995,0.07,0.02);
 %Taal(14.010038,120.997882,0.07,0.02)
 
-% add path for the create_aoi_coords function
-addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-Data_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Raw_Data/Merapi_202312/';
-FILE_NAME = 'MOD11_L2.A2023305.0325.061.2023307190626.hdf';
 
-file_to_read = ([Data_folder,FILE_NAME]);
+Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Raw_Data/Merapi_202312/';
+
+cd(Data_Folder)
+
+% this creates a struct that contains the details of the files .nc files in
+% the working directory. 
+S = dir(fullfile(Data_Folder,'MOD11_L2*.hdf'));
+
+%%
+
+for i = 1%:length(S)
+FILE_NAME = S(12).name;
+file_to_read = ([Data_Folder,FILE_NAME]);
 
 %info = hdfinfo(file_to_read);
 % Inside info, will tell you what are the variable names that can be read. 
@@ -70,7 +81,8 @@ LST = lst_original(lat_condition,lon_condition);
 %% This section saves the data
 
 DDD = str2double(FILE_NAME(15:17));
-YYYY= str2double(FILE_NAME(11:14));
+YYYY = str2double(FILE_NAME(11:14));
+HHMM = FILE_NAME(19:22);
 
 dateObj = datetime(YYYY, 1, 1) + caldays(DDD - 1);
 
@@ -87,10 +99,13 @@ YYYYMM = [FILE_NAME(11:14),num2str(MM)];
 Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Processed_Data/',...
 Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
 
-%mkdir(Output_Folder)
+mkdir(Output_Folder)
 cd(Output_Folder)
 
-matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
+matfilename = [Volcano,'_',YYYYMM,DD,'_',HHMM,'_',DayNight,'.mat'];
 
 % specify which variables to be saved depending on what is to be read.
 save([Output_Folder,matfilename],"lat","lon","LST");
+
+end
+

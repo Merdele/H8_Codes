@@ -14,7 +14,7 @@
 % saved according to the following variables
 Volcano = 'Marapi';
 YYYYMM = '202311';
-DD = {'18','19'};
+DD = {'15'};
 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
@@ -30,9 +30,9 @@ DayNight = 'Night';
 % destination_folder = ...
 % (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
 % Volcano,'_',YYYYMM,DD{j},'_',DayNight]);
-% 
-% %destination_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
-% 
+
+%destination_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
+
 % 
 % mkdir (destination_folder)
 % cd (destination_folder)
@@ -68,11 +68,7 @@ cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{j}]);
 
 % hardcoded the times of which will allow me to download the files
 % times are in UTC
-time = {'1800','1810','1820','1830','1840','1850',...
-     '1900','1910','1920','1930','1940','1950',...
-     '2000','2010','2020','2030','2040','2050',...
-     '2100','2110','2120','2130','2140','2150',...
-     '2200'};
+time = {'0300','0310'};
      
 % Marapi - UTC+7
 

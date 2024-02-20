@@ -10,8 +10,10 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 % Change the details for the specific event - the file directory will be
 % saved according to the following variables
 Volcano = 'Marapi';
-YYYYMM = '202312';
-DD = {'18','19','20','21','22','23','24','25',...
+YYYYMM = '202311';
+Data_YYYYMM = '202312';
+DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
+    '13','14','15','16','17','18','19','20','21','22','23','24','25',...
     '26','27','28','29','30','01','02'};
 % 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
@@ -27,8 +29,8 @@ DayNight = 'Night';
 %% This section loads the data
 
 Matfile_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
-Folder_Name = ([Volcano,'_',YYYYMM]);
-MatFile_Name = ([Volcano,'_',YYYYMM,'_',DayNight,'_Pcolors.mat']);
+Folder_Name = ([Volcano,'_',Data_YYYYMM]);
+MatFile_Name = ([Volcano,'_',Data_YYYYMM,'_',DayNight,'_Pcolors.mat']);
 
 File_To_Load = ([Matfile_Data_Folder,Folder_Name,'/',MatFile_Name]);
 
@@ -44,7 +46,7 @@ load(File_To_Load)
 
 
 % startDate = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]);
-startDate = datetime('2023-11-18');
+startDate = datetime('2023-11-01');
 dates = startDate + days(0:length(DD)-1);
 
 VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
@@ -59,9 +61,9 @@ for i = 1:length(VariableNames)
    
     myMatrix =  VarValue;
     
-    % Example data generation for 10 days
+ 
     numDays = length(DD);
-    timeIntervals = length(myMatrix);  % 5 hours with data every 10 minutes
+    timeIntervals = size(myMatrix,1);  % 5 hours with data every 10 minutes
     
     %%
     % Generate time vector from 2am to 5am 
@@ -71,14 +73,23 @@ for i = 1:length(VariableNames)
     
     % Plotting
     figure
+
+    % dates should have the same number of columns as myMatrix
+    % timevector should have the same number of columns as myMatrix
     pcolor(dates,datetime(timeVector), myMatrix);
-    shading flat;
-    
-    
+
+    % Set the color scheme
+    colormap('jet'); % You can replace 'jet' with any other colormap name
+    %shading flat;
+   
     % Customize the plot
     title(sprintf('%s for Mt Marapi',strrep(VarName,'_',' ')));
     xlabel('Date');
     ylabel('Time');
     colorbar;
+
+    fig_filename = ([VarName,'_for_Mt_Marapi.png']);
+    saveas(gcf, fig_filename);
+    close
 
 end
