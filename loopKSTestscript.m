@@ -11,14 +11,14 @@ Data_Folder = ...
 '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 %------------------------Config to change-------------
-Volcano = 'Sinabung';
-YYYYMM = '201906';
-DD = '09';
+Volcano = 'Marapi';
+YYYYMM = '202312';
+DD = '02';
 DayNight = 'Night';
 
 %------------------------------------------------------
 foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight];
-matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_BTD.mat'];
+matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
 % check if file exists
 if exist ([Data_Folder,foldername,'/',matfilename], 'file') == 0
@@ -30,12 +30,13 @@ load([Data_Folder,foldername,'/',matfilename])
 clear("lat")
 clear("lon")
 
-% mkdir([Data_Folder,foldername,'/KSTestBTD'])
-% cd([Data_Folder,foldername,'/KSTestBTD'])
+mkdir([Data_Folder,foldername,'/KSTestTBB'])
+cd([Data_Folder,foldername,'/KSTestTBB'])
 %% This section performs the consecutive KStest for every data collection time. 
 
 % Get a list of variable names in the workspace
-variableNames = who;
+variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
+    'tbb_14','tbb_15','tbb_16'};
 
 % Loop through the variable names
 for i = 1:numel(variableNames)

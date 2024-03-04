@@ -4,31 +4,44 @@
 % Inversion is then carried out
 % Created by Denny on 13 Feb 2024. 
 
-%% This section loads the MODIS files
+%% This section loads the files
 clear
                 
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-modis_data_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/MODIS';
+modis_data_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Processed_Data';
 
 volcano_name = 'Marapi';
 
-cd(modis_data_folder)
-
-modis_filename_struct = (dir(fullfile(modis_data_folder,[volcano_name,'*'])));
+month_folder_struct = (dir(fullfile(modis_data_folder,[volcano_name,'*'])));
 
 cumulative_LST = [];
 
-for i = 2:length(modis_filename_struct)
+for i = 4:9%:length(month_folder_struct)-1
 
-    load([modis_filename_struct(i).name])
+specific_month_folder = [modis_data_folder,'/',month_folder_struct(i).name];
+
+cd(specific_month_folder)
+
+day_folder_struct = (dir(fullfile(specific_month_folder,[volcano_name,'*'])));
+
+for j = 1:length(day_folder_struct)
+
+    specific_day_folder = [specific_month_folder,'/',day_folder_struct(j).name];
+
+    cd(specific_day_folder)
+
+    matfile_struct = (dir(fullfile(specific_day_folder,[volcano_name,'*'])));
+
+    load([matfile_struct(1).name])
 
     MODIS_lat = lat;
     MODIS_lon = lon;
 
     clear('lat','lon')
 
+    % hardcoded the indexes
     LST = LST(1:10,:);
 
     LST(LST == 0) = NaN;
@@ -49,8 +62,21 @@ for i = 2:length(modis_filename_struct)
 
     cumulative_LST = [cumulative_LST;resampled_LST_column];
 
+end
 
 end
+
+%%
+
+modis_data_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/MODIS';
+
+volcano_name = 'Marapi';
+
+modis_filename_struct = (dir(fullfile(modis_data_folder,[volcano_name,'*'])));
+
+for i = 1:length(modis_filename_struct)
+
+    
 
 %% This step reads the himawari data
 
@@ -118,33 +144,11 @@ cumulative_T_i(nan_idx) = [];
 cumulative_T_j(nan_idx) = [];
 cumulative_T_k(nan_idx) = [];
 
-%% removes indexes for all variables where BT for Ti,j,k are below 240
-less_than_variable = 280;
-cumulative_T_i_lessthan_idx = find(cumulative_T_i < less_than_variable);
+% removes indexes for all variables where BT for Ti,j,k are below 240
+less_than_variable = 240;
+cumulative_T_i_lessthan240_idx = find(cumulative_T_i < less_than_variable);
 
-cumulative_LST(cumulative_T_i_lessthan_idx) = [];
-cumulative_T_i(cumulative_T_i_lessthan_idx) = [];
-cumulative_T_j(cumulative_T_i_lessthan_idx) = [];
-cumulative_T_k(cumulative_T_i_lessthan_idx) = [];
 
-cumulative_T_j_lessthan_idx = find(cumulative_T_j < less_than_variable);
-
-cumulative_LST(cumulative_T_j_lessthan_idx) = [];
-cumulative_T_i(cumulative_T_j_lessthan_idx) = [];
-cumulative_T_j(cumulative_T_j_lessthan_idx) = [];
-cumulative_T_k(cumulative_T_j_lessthan_idx) = [];
-
-cumulative_T_k_lessthan_idx = find(cumulative_T_k < less_than_variable);
-
-cumulative_LST(cumulative_T_k_lessthan_idx) = [];
-cumulative_T_i(cumulative_T_k_lessthan_idx) = [];
-cumulative_T_j(cumulative_T_k_lessthan_idx) = [];
-cumulative_T_k(cumulative_T_k_lessthan_idx) = [];
-
-cumulative_LST = cumulative_LST - 273;
-cumulative_T_i = cumulative_T_i - 273;
-cumulative_T_j = cumulative_T_j - 273;
-cumulative_T_k = cumulative_T_k - 273;
 
 
 %% This section performs the inversion
@@ -164,14 +168,5 @@ mEst = (X' * X)' * X' * cumulative_LST;
 data = [cumulative_LST, cumulative_T_i, cumulative_T_j, cumulative_T_k];
 
 R = corrplot(data,'varNames',{'LST','tbb13','tbb14','tbb15'});
-
-%%
-matfilename = 'Results_of_Inversion.mat';
-
-Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/';
-
-% specify which variables to be saved depending on what is to be read.
-save([Output_Folder,matfilename],'mEst','cumulative_LST','cumulative_T_i',...
-    'cumulative_T_j','cumulative_T_k');
 
 

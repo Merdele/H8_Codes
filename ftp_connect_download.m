@@ -13,8 +13,8 @@
 % Change the details for the specific event - the file directory will be
 % saved according to the following variables
 Volcano = 'Marapi';
-YYYYMM = '202311';
-DD = {'15'};
+YYYYMM = '202208';
+DD = {'08'};
 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
@@ -24,7 +24,7 @@ DD = {'15'};
 
 % only important for when downloading Day time and Night time acquisitions
 % separately 
-DayNight = 'Night';
+DayNight = 'Day';
 
 
 % destination_folder = ...
@@ -68,7 +68,7 @@ cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{j}]);
 
 % hardcoded the times of which will allow me to download the files
 % times are in UTC
-time = {'0300','0310'};
+time = {'0310','0320'};
      
 % Marapi - UTC+7
 
@@ -101,7 +101,7 @@ time = {'0300','0310'};
 for i = 1:length(time)
     try
         % Note some files will be NC_H09 instead for Himawari-9 Data
-    files_to_download_date = ['NC_H09_',YYYYMM,DD{j},'_']; %'NC_H08_20190604_';  
+    files_to_download_date = ['NC_H08_',YYYYMM,DD{j},'_']; %'NC_H08_20190604_';  
     files_to_download_time = time{i};
     files_to_download_end = '_R21_FLDK.06001_06001.nc';
     filename=[files_to_download_date,files_to_download_time,files_to_download_end];

@@ -15,9 +15,9 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 %% ------------------------Config to change-------------
 Volcano = 'Marapi';
-YYYYMM = '202311';
-DD = '15';
-DayNight = 'Night';
+YYYYMM = '202305';
+DD = '31';
+DayNight = 'Day';
 
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
@@ -60,7 +60,7 @@ S = dir(fullfile(Data_Folder,'NC*.nc'));
 
 
 % loops to read and load the netcdf data
-for i = 1:2%:length(S)
+for i = 1:length(S)
     try
     % creates the string of the .nc file to be read
     inFile=[S(i).folder,'/',S(i).name];

@@ -34,6 +34,8 @@ function [results] = performKStest_function(dataStruct,name)
         %     - mean_referenceData)/ sd_referenceData;
 
         referenceData = (dataStruct.(fieldNames{i})(:));
+
+        referenceData = referenceData - 273;
             
 
         % Get the data for the current field
@@ -44,6 +46,8 @@ function [results] = performKStest_function(dataStruct,name)
         %     - mean_currentData)/ sd_currentData;
 
         currentData = (dataStruct.(fieldNames{i+1})(:));
+
+        currentData = currentData - 273;
 
         % Perform the KS test to compare the current data to the reference data
         % can modify to test with other distributions

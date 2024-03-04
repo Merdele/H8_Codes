@@ -1,0 +1,34 @@
+%% K Fold Cross Validation
+
+Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/';
+File_to_Load = 'Results_of_Inversion.mat';
+load([Data_Folder,File_to_Load])
+
+indices = crossvalind('Kfold',cumulative_LST,5);
+
+tbl = table(cumulative_T_i,cumulative_T_j,cumulative_T_k,cumulative_LST,'VariableNames',...
+    {'Predictor1','Predictor2','Predictor3','Response'});
+
+%%
+
+lm = fitlm(tbl, 'Response ~ Predictor1 + Predictor2 + Predictor3');
+
+disp(lm)
+
+%%
+
+
+load fisheriris
+
+indices = crossvalind('Kfold',species,10);
+
+cp = classperf(species);
+
+for i = 1:10
+    test = (indices == i); 
+    train = ~test;
+    class = classify(meas(test,:),meas(train,:),species(train,:));
+    classperf(cp,class,test);
+end
+cp.ErrorRate
+
