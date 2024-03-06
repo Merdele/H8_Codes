@@ -20,7 +20,9 @@ modis_filename_struct = (dir(fullfile(modis_data_folder,[volcano_name,'*'])));
 
 cumulative_LST = [];
 
-for i = 2:length(modis_filename_struct)
+start_loop = 60;
+
+for i = start_loop:length(modis_filename_struct)
 
     load([modis_filename_struct(i).name])
 
@@ -66,7 +68,7 @@ cumulative_T_i = [];
 cumulative_T_j = [];
 cumulative_T_k = [];
 
-for k = 1:length(himawari_filename_struct)
+for k = start_loop:length(himawari_filename_struct)
 
 load(himawari_filename_struct(k).name)
 

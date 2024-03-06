@@ -16,15 +16,16 @@ Volcano = 'Marapi';
 YYYYMM = '202311';
 DD = {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
     '17','18','19','20','21','22','23','24','25','26','27','28','29','30'};
-DayNight = 'Night';
+DayNight = 'Day';
 
 %------------------------------------------------------
 
 DEM_Data_Folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/DEM/',Volcano]);
 
-Matfile_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
+Himawari_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 DEMFileName = '/resampled_dem.tif';
+
 
 %%
 
@@ -41,18 +42,18 @@ tbbfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
 % combining filenames and paths
 DEMfiletoread = ([DEM_Data_Folder,DEMFileName]);
 % btdfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',btdfilename]);
- tbbfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',tbbfilename]);
+tbbfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',tbbfilename]);
 % NTBfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',NTBfilename]);
 %stackfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',stackfilename]);
 
 [DEM,R] = readgeoraster(DEMfiletoread,"OutputType","double");
 % load(btdfiletoread)
- load(tbbfiletoread)
+load(tbbfiletoread)
 % load(NTBfiletoread)
-%load(stackfiletoread)
+% load(stackfiletoread)
 
-mkdir([Matfile_Data_Folder,foldername,'/','DEMvsTBB_Night'])
-cd([Matfile_Data_Folder,foldername,'/DEMvsTBB_Night'])
+mkdir([Himawari_Data_Folder,foldername,'/','DEMvsTBB_Night'])
+cd([Himawari_Data_Folder,foldername,'/DEMvsTBB_Night'])
 
 
 variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...

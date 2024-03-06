@@ -5,6 +5,36 @@
 % https://www.eorc.jaxa.jp/ptree/faq.html#0103
 % created by Denny on 23 Oct 2023.
 
+%%
+% MODIS_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/MODIS';
+% 
+% cd(MODIS_Data_Folder)
+% 
+% S = dir(fullfile(MODIS_Data_Folder,'*.mat'));
+
+for h = 1:length(S)
+
+YYYYMM = S(h).name(8:13);
+
+DD = {S(h).name(14:15)};
+
+HHMM = S(h).name(17:20);
+
+HHMM_double = str2double(HHMM);
+
+% if mod(HHMM_double, 10) == 5
+%     time_1 = HHMM_double-5;
+%     time_2 = HHMM_double+5;
+%     time_1_str = sprintf('%02d', time_1);
+%     time_2_str = sprintf('%02d', time_2);
+%     time ={['0',time_1_str],['0',time_2_str]};
+% else
+%     time = HHMM;
+% end
+
+
+
+
 
 %% Change Directory of FTP and destination directory
 % downloads the .nc files
@@ -13,8 +43,8 @@
 % Change the details for the specific event - the file directory will be
 % saved according to the following variables
 Volcano = 'Marapi';
-YYYYMM = '202208';
-DD = {'08'};
+% YYYYMM = '202208';
+% DD = {'08'};
 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
@@ -68,7 +98,19 @@ cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{j}]);
 
 % hardcoded the times of which will allow me to download the files
 % times are in UTC
-time = {'0310','0320'};
+% time = {'0310','0320'};
+
+
+if mod(HHMM_double, 10) == 5
+    time_1 = HHMM_double-5;
+    time_2 = HHMM_double+5;
+    time_1_str = sprintf('%02d', time_1);
+    time_2_str = sprintf('%02d', time_2);
+    time ={['0',time_1_str],['0',time_2_str]};
+else
+    time = {HHMM};
+end
+
      
 % Marapi - UTC+7
 
@@ -117,6 +159,6 @@ end
 
 end
 
-
+end
 
 fprintf('Download Complete\n')

@@ -24,7 +24,7 @@ DayNight = 'Day';
 
 
 
-Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Raw_Data/Merapi_202312/';
+Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Raw_Data/Marapi_2022-2023/';
 
 cd(Data_Folder)
 
@@ -38,7 +38,7 @@ S = dir(fullfile(Data_Folder,'MOD11_L2*.hdf'));
 
 %% This section reads the data 
 
-for i = 1:272%:length(S)
+for i = 1:length(S)
 FILE_NAME = S(i).name;
 file_to_read = ([Data_Folder,FILE_NAME]);
 

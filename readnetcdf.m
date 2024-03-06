@@ -13,10 +13,23 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
+%% This Section is for automatically reading all .nc files based on the folders
+% inside the FullFile
+
+% FullFile = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data';
+% 
+% D = dir(fullfile(FullFile,'*_Day'));
+% 
+% for z = 60:88
+% 
+% YYYYMM =D(z).name(8:13);
+% 
+% DD=D(z).name(14:15);
+
 %% ------------------------Config to change-------------
 Volcano = 'Marapi';
-YYYYMM = '202305';
-DD = '31';
+YYYYMM = '202212';
+DD = '24';
 DayNight = 'Day';
 
 
@@ -37,14 +50,17 @@ Data_Folder = ...
 ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
 Volcano,'_',YYYYMM,DD,'_',DayNight];
 
-%Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
 
-Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/',...
-Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
+% Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
 
-%Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/Sinabung_2019/';
+% Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/',...
+% Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
 
-mkdir(Output_Folder)
+Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Himawari/';
+
+% Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/Sinabung_2019/';
+
+%mkdir(Output_Folder)
 
 cd(Data_Folder)
 
@@ -142,11 +158,18 @@ end
 
 %%
 
-matfilename = [Volcano,'_',YYYYMM,DD,'_0300_',DayNight,'.mat'];
+HHMM = time_of_data_collection(17:20);
+
+matfilename = [Volcano,'_',YYYYMM,DD,'_',HHMM,'_',DayNight,'.mat'];
 
 % specify which variables to be saved depending on what is to be read.
 save([Output_Folder,matfilename],"lat","lon","tbb_07","tbb_08","tbb_09"...
     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
     "SOA","SAA","SOZ");
 
+clear("lat","lon","tbb_07","tbb_08","tbb_09"...
+    ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
+    "SOA","SAA","SOZ")
+
+% end
 
