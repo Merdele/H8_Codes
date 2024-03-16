@@ -16,26 +16,24 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %% This Section is for automatically reading all .nc files based on the folders
 % inside the FullFile
 
-% FullFile = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data';
-% 
-% D = dir(fullfile(FullFile,'*_Day'));
-% 
-% for z = 60:88
-% 
-% YYYYMM =D(z).name(8:13);
-% 
-% DD=D(z).name(14:15);
+FullFile = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data';
+
+D = dir(fullfile(FullFile,'Taal*_Day'));
+
+for z = 1:31
+
+YYYYMM =D(z).name(6:11);
+
+DD=D(z).name(12:13);
 
 %% ------------------------Config to change-------------
-Volcano = 'Marapi';
-YYYYMM = '202212';
-DD = '24';
+Volcano = 'Taal';
 DayNight = 'Day';
 
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords_function(-0.391642,100.457107,0.04,0.02);
+    create_aoi_coords_function(14.010038,120.997882,0.07,0.02);
 
 
 
@@ -56,11 +54,11 @@ Volcano,'_',YYYYMM,DD,'_',DayNight];
 % Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/',...
 % Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
 
-Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Himawari/';
+Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Taal/Himawari/';
 
 % Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/Sinabung_2019/';
 
-%mkdir(Output_Folder)
+mkdir(Output_Folder)
 
 cd(Data_Folder)
 
@@ -171,5 +169,7 @@ clear("lat","lon","tbb_07","tbb_08","tbb_09"...
     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
     "SOA","SAA","SOZ")
 
-% end
+
+
+end
 

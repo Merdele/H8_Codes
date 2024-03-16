@@ -6,19 +6,20 @@
 % created by Denny on 23 Oct 2023.
 
 %%
-% MODIS_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/MODIS';
-% 
-% cd(MODIS_Data_Folder)
-% 
-% S = dir(fullfile(MODIS_Data_Folder,'*.mat'));
+MODIS_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Sinabung/MODIS';
+
+cd(MODIS_Data_Folder)
+
+S = dir(fullfile(MODIS_Data_Folder,'*.mat'));
 
 for h = 1:length(S)
 
-YYYYMM = S(h).name(8:13);
+% Edit these numbers based on the length of the filename
+YYYYMM = S(h).name(10:15);
 
-DD = {S(h).name(14:15)};
+DD = {S(h).name(16:17)};
 
-HHMM = S(h).name(17:20);
+HHMM = S(h).name(19:22);
 
 HHMM_double = str2double(HHMM);
 
@@ -42,7 +43,7 @@ HHMM_double = str2double(HHMM);
 %---------Config to change--------
 % Change the details for the specific event - the file directory will be
 % saved according to the following variables
-Volcano = 'Marapi';
+Volcano = 'Sinabung';
 % YYYYMM = '202208';
 % DD = {'08'};
 
@@ -82,15 +83,7 @@ ftpObj = ftp(ftpServer, ftpUser, ftpPassword);
 
 for j = 1:length(DD)
 
-destination_folder = ...
-(['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
-Volcano,'_',YYYYMM,DD{j},'_',DayNight]);
 
-%destination_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
-
-
-mkdir (destination_folder)
-cd (destination_folder)    
 
 % cd to desired path in the ftp
 cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{j}]);
@@ -101,16 +94,54 @@ cd(ftpObj, ['/jma/netcdf/',YYYYMM,'/',DD{j}]);
 % time = {'0310','0320'};
 
 
-if mod(HHMM_double, 10) == 5
-    time_1 = HHMM_double-5;
-    time_2 = HHMM_double+5;
-    time_1_str = sprintf('%02d', time_1);
-    time_2_str = sprintf('%02d', time_2);
-    time ={['0',time_1_str],['0',time_2_str]};
-else
-    time = {HHMM};
-end
+% if mod(HHMM_double, 10) == 5
+%     time_1 = HHMM_double-5;
+%     time_2 = HHMM_double+5;
+%     time_1_str = sprintf('%02d', time_1);
+%     time_2_str = sprintf('%02d', time_2);
+% 
+%     if mod(time_2,10) == 6
+% 
+%     time_2 = time_2 - 160;
+% 
+%     time_2_str = sprintf('%02d', time_2);
+% 
+%     end
+% 
+%     time ={['0',time_1_str],['0',time_2_str]};
+% 
+% else
+%     time = {HHMM};
+% end
 
+% This chunk deals with the case where MODIS data is collected at XXX5
+% minutes. Himawari data 5 minute before and after will be downloaded
+% instead. In the case where the time is XX55, the additional if statement
+% will convert it the next hour
+switch mod(HHMM_double, 10)
+
+    case 5
+
+        time_1 = HHMM_double-5;
+        time_2 = HHMM_double+5;
+
+        if mod(time_2,100) == 60
+        
+        time_2 = time_2 + 100 - 60;
+
+        end
+
+        time_1_str = sprintf('%02d', time_1);
+        time_2_str = sprintf('%02d', time_2);
+
+        time ={['0',time_1_str],['0',time_2_str]};
+        
+
+    otherwise
+    
+        time = {HHMM};
+
+end
      
 % Marapi - UTC+7
 
@@ -138,6 +169,17 @@ end
     %  '2100','2110','2120','2130','2140','2150',...
     %  '2200','2210','2220','2230','2240','2250',...
     %  '2300','2310','2320','2330','2340','2350'};
+
+% Change destination Folder
+destination_folder = ...
+(['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
+Volcano,'_',YYYYMM,DD{j},'_',DayNight]);
+
+% destination_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Taal_2020_LST';
+
+
+mkdir (destination_folder)
+cd (destination_folder)    
 
 
 for i = 1:length(time)

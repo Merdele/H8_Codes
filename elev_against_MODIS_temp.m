@@ -1,3 +1,9 @@
+%% The script plots the temperature against elevation
+% Plots the MODIS LST data against a resampled DEM file, downloaded from the USGS
+% website. 
+% Gaps in the DEM was first filled using QGIS and GDALfill. THe filled DEM
+% was then resampled to match the pixel size of the BTD data.
+
 %%
 
 clear

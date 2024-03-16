@@ -11,12 +11,12 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 clear
 
 % ------------------------Config to change-------------
-Volcano = 'Marapi';
+Volcano = 'Taal';
 DayNight = 'Day';
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords_function(-0.391642,100.457107,0.04,0.02);
+    create_aoi_coords_function(14.010038,120.997882,0.07,0.02);
 
 %Marapi(-0.391642,100.457107,0.04,0.02)
 %Sinabung(3.170479,98.391995,0.07,0.02);
@@ -24,11 +24,11 @@ DayNight = 'Day';
 
 
 
-Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Raw_Data/Marapi_2022-2023/';
+Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Raw_Data/Taal_2020/';
 
 cd(Data_Folder)
 
-Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/MODIS/';
+Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Taal/MODIS/';
 
 mkdir(Output_Folder)
 
