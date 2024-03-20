@@ -2,8 +2,11 @@
 
 clear
 
-Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/';
-File_to_Load = 'Results_of_Inversion.mat';
+volcano_name = 'Taal';
+
+Data_Folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/'...
+    volcano_name,'/']);
+File_to_Load = (['Results_of_Inversion_',volcano_name,'.mat']);
 load([Data_Folder,File_to_Load])
 
 tbl = table(cumulative_T_i,cumulative_T_j,cumulative_T_k,cumulative_LST,'VariableNames',...

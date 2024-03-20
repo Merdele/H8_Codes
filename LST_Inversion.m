@@ -10,7 +10,7 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-volcano_name = 'Taal';
+volcano_name = 'Taal'; %change this to volcano of interest
 
 modis_data_folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/'...
     ,volcano_name,'/MODIS']);
@@ -55,7 +55,7 @@ for i = start_loop:length(modis_filename_struct)
 
     cumulative_LST = [cumulative_LST;resampled_LST_column];
 
-        case 'Sinabung'
+        case {'Sinabung','Taal'}
     LST = LST(1:15,:);
 
     LST(LST == 0) = NaN;
@@ -81,9 +81,6 @@ for i = start_loop:length(modis_filename_struct)
     resampled_LST_column = average_LST(:);
 
     cumulative_LST = [cumulative_LST;resampled_LST_column];
-
-        case 'Taal'
-
 
 
     end
@@ -161,7 +158,7 @@ cumulative_T_j(nan_idx) = [];
 cumulative_T_k(nan_idx) = [];
 
 %% removes indexes for all variables where BT for Ti,j,k are below 240
-less_than_variable = 275;
+less_than_variable = 290;
 cumulative_T_i_lessthan_idx = find(cumulative_T_i < less_than_variable);
 
 cumulative_LST(cumulative_T_i_lessthan_idx) = [];
@@ -208,9 +205,10 @@ data = [cumulative_LST, cumulative_T_i, cumulative_T_j, cumulative_T_k];
 R = corrplot(data,'varNames',{'LST','tbb13','tbb14','tbb15'});
 
 %%
-matfilename = 'Results_of_Inversion.mat';
+matfilename = (['Results_of_Inversion_',volcano_name,'.mat']);
 
-Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/';
+Output_Folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/'...
+    volcano_name,'/']);
 
 % specify which variables to be saved depending on what is to be read.
 save([Output_Folder,matfilename],'mEst','cumulative_LST','cumulative_T_i',...

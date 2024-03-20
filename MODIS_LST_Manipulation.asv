@@ -24,11 +24,11 @@ DayNight = 'Day';
 
 
 
-Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Raw_Data/Marapi_2023/';
+Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/MODIS_Raw_Data/Taal_2020/';
 
 cd(Data_Folder)
 
-Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Marapi/MODIS/testing/';
+Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Taal/MODIS/';
 
 mkdir(Output_Folder)
 

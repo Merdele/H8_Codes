@@ -10,7 +10,7 @@ clear
 
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-Volcano = 'Marapi';
+Volcano = 'Sinabung';
 
 DEM_Data_Folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/DEM/',Volcano]);
 
@@ -20,7 +20,8 @@ DEMfiletoread = ([DEM_Data_Folder,DEMFileName]);
 
 [DEM,R] = readgeoraster(DEMfiletoread,"OutputType","double");
 
-MODIS_Data_Folder =  '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/MODIS/';
+MODIS_Data_Folder =  (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/'...
+    Volcano,'/MODIS/']);
 
 modis_filename_struct = (dir(fullfile(MODIS_Data_Folder,[Volcano,'*'])));
 
