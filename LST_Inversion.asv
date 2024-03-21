@@ -43,8 +43,6 @@ cumulative_T_i = [];
 cumulative_T_j = [];
 cumulative_T_k = [];
 
-start_loop = 1;
-
 for k = start_loop:length(himawari_filename_struct)
 
 load(himawari_filename_struct(k).name)
@@ -55,39 +53,38 @@ load(himawari_filename_struct(k).name)
     
     clear('lat','lon')
 
+
+
+
+
 fieldname = fieldnames(tbb_07);
 
-volcano_lat_indexing = 0.02 * floor(Volcano_lat / 0.02);
+Volcano_lat_indexing = 0.02 * floor(Volcano_lat / 0.02);
 
-crater_lat_index = find(Himawari_lat.(fieldname{1})>volcano_lat_indexing-0.01 & ...
-Himawari_lat.(fieldname{1})<volcano_lat_indexing+0.01);
-
-volcano_lon_indexing = 0.02 * floor(Volcano_lon / 0.02);
-
-crater_lon_index = find(Himawari_lon.(fieldname{1})>volcano_lon_indexing-0.01 & ...
-Himawari_lon.(fieldname{1})<volcano_lon_indexing+0.01);
+crater_lat_index = find(Himawari_lat.(fieldname{1}<Volcano_lat_indexing+0.01 && ...
+Himawari_lat.(fieldname{1}>Volcano_lat_indexing-)));
 
     if length(fieldname) == 1
 
-        T_i = tbb_13.(fieldname{1})(crater_lat_index,crater_lon_index);
+        T_i = tbb_13.(fieldname{1})(:);
     
-        T_j = tbb_14.(fieldname{1})(crater_lat_index,crater_lon_index);
+        T_j = tbb_14.(fieldname{1})(:);
         
-        T_k = tbb_15.(fieldname{1})(crater_lat_index,crater_lon_index);
+        T_k = tbb_15.(fieldname{1})(:);
 
     else
     
-            tbb_13_a = tbb_13.(fieldname{1})(crater_lat_index,crater_lon_index);
+            tbb_13_a = tbb_13.(fieldname{1})(:);
             
-            tbb_14_a = tbb_14.(fieldname{1})(crater_lat_index,crater_lon_index);
+            tbb_14_a = tbb_14.(fieldname{1})(:);
             
-            tbb_15_a = tbb_15.(fieldname{1})(crater_lat_index,crater_lon_index);
+            tbb_15_a = tbb_15.(fieldname{1})(:);
 
-            tbb_13_b = tbb_13.(fieldname{2})(crater_lat_index,crater_lon_index);
+            tbb_13_b = tbb_13.(fieldname{2})(:);
             
-            tbb_14_b = tbb_14.(fieldname{2})(crater_lat_index,crater_lon_index);
+            tbb_14_b = tbb_14.(fieldname{2})(:);
             
-            tbb_15_b = tbb_15.(fieldname{2})(crater_lat_index,crater_lon_index);
+            tbb_15_b = tbb_15.(fieldname{2})(:);
 
             T_i = (tbb_13_a + tbb_13_b) / 2;
 
@@ -103,10 +100,10 @@ Himawari_lon.(fieldname{1})<volcano_lon_indexing+0.01);
     
 end
 
-plot(cumulative_T_k)
-
 
 %% This section loads the MODIS files
+
+
 
 modis_data_folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/'...
     ,volcano_name,'/MODIS']);
@@ -116,6 +113,8 @@ cd(modis_data_folder)
 modis_filename_struct = (dir(fullfile(modis_data_folder,[volcano_name,'*'])));
 
 cumulative_LST = [];
+
+start_loop = 1;
 
 for i = start_loop:length(modis_filename_struct)
 
