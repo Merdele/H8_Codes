@@ -12,6 +12,26 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 volcano_name = 'Taal'; %change this to volcano of interest
 
+switch volcano_name
+    
+    case 'Marapi'
+        Volcano_lat = -0.391642;
+        Volcano_lon = 100.457107;
+
+    case 'Sinabung'
+        Volcano_lat = 3.170479;
+        Volcano_lon = 98.391995;
+
+    case 'Taal'
+        Volcano_lat = 14.010038;
+        Volcano_lon = 120.997882;
+
+end
+
+%Marapi(-0.391642,100.457107,0.04,0.02)
+%Sinabung(3.170479,98.391995,0.07,0.02);
+%Taal(14.010038,120.997882,0.07,0.02)
+
 modis_data_folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/'...
     ,volcano_name,'/MODIS']);
 
