@@ -5,38 +5,6 @@
 % https://www.eorc.jaxa.jp/ptree/faq.html#0103
 % created by Denny on 23 Oct 2023.
 
-%%
-MODIS_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Sinabung/MODIS';
-
-cd(MODIS_Data_Folder)
-
-S = dir(fullfile(MODIS_Data_Folder,'*.mat'));
-
-for h = 1:length(S)
-
-% Edit these numbers based on the length of the filename
-YYYYMM = S(h).name(10:15);
-
-DD = {S(h).name(16:17)};
-
-HHMM = S(h).name(19:22);
-
-HHMM_double = str2double(HHMM);
-
-% if mod(HHMM_double, 10) == 5
-%     time_1 = HHMM_double-5;
-%     time_2 = HHMM_double+5;
-%     time_1_str = sprintf('%02d', time_1);
-%     time_2_str = sprintf('%02d', time_2);
-%     time ={['0',time_1_str],['0',time_2_str]};
-% else
-%     time = HHMM;
-% end
-
-
-
-
-
 %% Change Directory of FTP and destination directory
 % downloads the .nc files
 
@@ -44,12 +12,10 @@ HHMM_double = str2double(HHMM);
 % Change the details for the specific event - the file directory will be
 % saved according to the following variables
 Volcano = 'Sinabung';
-% YYYYMM = '202208';
-% DD = {'08'};
-
-% {'01','02','03','04','05','06','07','08','09','10','11','12',...
-%     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
-%     '26','27','28','29','30','31'};
+YYYYMM = '202208';
+DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
+    '13','14','15','16','17','18','19','20','21','22','23','24','25',...
+    '26','27','28','29','30','31'};
 
 % Marapi UTC +7
 
@@ -62,11 +28,11 @@ DayNight = 'Day';
 % (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/',...
 % Volcano,'_',YYYYMM,DD{j},'_',DayNight]);
 
-%destination_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
+destination_folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Marapi_2023';
 
-% 
-% mkdir (destination_folder)
-% cd (destination_folder)
+
+mkdir (destination_folder)
+cd (destination_folder)
 
 %---------------------------------
 
