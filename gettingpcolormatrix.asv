@@ -187,8 +187,6 @@ BTD_13_14_pcolour = [BTD_13_14_pcolour,data_13_14];
 BTD_13_15_pcolour = [BTD_13_15_pcolour,data_13_15];
 BTD_14_15_pcolour = [BTD_14_15_pcolour,data_14_15];
 BTD_7_13_pcolour = [BTD_7_13_pcolour,data_7_13];
-BTD_7_14_pcolour = [BTD_7_14_pcolour,data_7_14];
-BTD_7_15_pcolour = [BTD_7_15_pcolour,data_7_15];
 
 % data_07 = [];
 % data_08 = [];
@@ -205,8 +203,6 @@ data_13_14 = [];
 data_13_15 = [];
 data_14_15 = [];
 data_7_13 = [];
-data_7_14 = [];
-data_7_15 = [];
 
 
 end
@@ -223,4 +219,4 @@ matfilename = [Volcano,'_',YYYYMM,'_',DayNight,'_BTD_Pcolors.mat'];
 %     "tbb_10_pcolor","tbb_09_pcolor","tbb_08_pcolor","tbb_07_pcolor")
 
 save([Output_Folder,'/',matfilename],"BTD_7_13_pcolour","BTD_14_15_pcolour",...
-    "BTD_13_15_pcolour","BTD_13_14_pcolour","BTD_7_15_pcolour","BTD_7_14_pcolour")
+    "BTD_13_15_pcolour","BTD_13_14_pcolour")

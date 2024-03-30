@@ -21,8 +21,8 @@ DayNight = 'Night';
 %------------------------------------------------------
 for j = 1:length(DD)
 
-foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{j},'_',DayNight];
-matfilename = [Volcano,'_',YYYYMM,DD{j},'_',DayNight,'.mat'];
+foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{i},'_',DayNight];
+matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
 % % check if file exists
 % if exist ([Data_Folder,foldername,'/',matfilename], 'file') == 0

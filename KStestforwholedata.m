@@ -12,7 +12,7 @@ Data_Folder = ...
 %------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = {'02','03','04','05','06','07','08','09'};
+DD = {'02','03'};%,'04','05','06','07','08','09'};
 DayNight = 'Night';
 
 %------------------------------------------------------
@@ -38,26 +38,26 @@ clear("lon")
 
 %%
 
-tbb_13_14_before = tbb_13_14;
-tbb_13_15_before = tbb_13_15;
-tbb_14_15_before = tbb_14_15;
-tbb_7_13_before = tbb_7_13;
+BTD_13_14_before = BTD_13_14;
+BTD_13_15_before = BTD_13_15;
+BTD_14_15_before = BTD_14_15;
+BTD_7_13_before = BTD_7_13;
 
-clear("tbb_7_13","tbb_14_15","tbb_13_15","tbb_13_14")
+clear("BTD_7_13","BTD_14_15","BTD_13_15"," BTD_13_14")
 
 load([Data_Folder,afterFoldername,'/',afterMatfilename])
 
-tbb_13_14_after = tbb_13_14;
-tbb_13_15_after = tbb_13_15;
-tbb_14_15_after = tbb_14_15;
-tbb_7_13_after = tbb_7_13;
+BTD_13_14_after = BTD_13_14;
+BTD_13_15_after = BTD_13_15;
+BTD_14_15_after = BTD_14_15;
+BTD_7_13_after = BTD_7_13;
 
 
-before_variableNames = {'tbb_13_15_before','tbb_7_13_before',...
-    'tbb_13_14_before','tbb_14_15_before'};
+before_variableNames = {'BTD_13_15_before','BTD_7_13_before',...
+    'BTD_13_14_before','BTD_14_15_before'};
 
-after_variableNames = {'tbb_13_15_after','tbb_7_13_after',...
-    'tbb_13_14_after','tbb_14_15_after'};
+after_variableNames = {'BTD_13_15_after','BTD_7_13_after',...
+    'BTD_13_14_after','BTD_14_15_after'};
 
 for i = 1:length(before_variableNames)
     
@@ -124,7 +124,7 @@ for i = 1:length(before_variableNames)
         hold on;
         plot(x2, ecdf2, 'r', 'LineWidth', 2);
         legend('First Data', 'Second Data','Location','best');
-        xlabel('X-axis Label');
+        xlabel('Brightness Temperature (Celsius)');
         ylabel('CDF Value');
         old_title = sprintf('%s_KS-Test between %s and %s',before_variableNames{i},...
             ([Volcano,'_',YYYYMM,DD{k}]),...
@@ -137,10 +137,10 @@ for i = 1:length(before_variableNames)
         % Save the figure as an image file (e.g., PNG)
         % fig_filename = sprintf('%s_ks_test_between %s and %s.png',...
         %     name,fieldNames{i},fieldNames{i+1});
-        fig_filename = ([new_title,'.png']);
-        saveas(gcf, fig_filename);
-
-        close
+        % fig_filename = ([new_title,'.png']);
+        % saveas(gcf, fig_filename);
+        % 
+        % close
 
 
 end

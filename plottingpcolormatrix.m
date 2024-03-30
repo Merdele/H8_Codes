@@ -30,7 +30,7 @@ DayNight = 'Night';
 
 Matfile_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 Folder_Name = ([Volcano,'_',Data_YYYYMM]);
-MatFile_Name = ([Volcano,'_',Data_YYYYMM,'_',DayNight,'_Pcolors.mat']);
+MatFile_Name = ([Volcano,'_',Data_YYYYMM,'_',DayNight,'_BTD_Pcolors.mat']);
 
 File_To_Load = ([Matfile_Data_Folder,Folder_Name,'/',MatFile_Name]);
 
@@ -49,9 +49,13 @@ load(File_To_Load)
 startDate = datetime('2023-11-01');
 dates = startDate + days(0:length(DD)-1);
 
-VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
-    'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
-    'tbb_15_pcolor','tbb_16_pcolor'};
+% VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
+%     'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
+%     'tbb_15_pcolor','tbb_16_pcolor'};
+
+VariableNames = {'BTD_7_13_pcolour','BTD_14_15_pcolour',...
+    'BTD_13_15_pcolour','BTD_13_14_pcolour','BTD_7_14_pcolour','BTD_7_15_pcolour'};
+
 
 for i = 1:length(VariableNames)
 

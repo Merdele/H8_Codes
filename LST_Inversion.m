@@ -11,7 +11,7 @@ clear
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
 %% This section chooses the volcano of interest
-volcano_name = 'Taal'; %change this to volcano of interest
+volcano_name = 'Marapi'; %change this to volcano of interest
 
 switch volcano_name
 
