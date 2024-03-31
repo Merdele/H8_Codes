@@ -158,7 +158,7 @@ cumulative_T_j(nan_idx) = [];
 cumulative_T_k(nan_idx) = [];
 
 %% removes indexes for all variables where BT for Ti,j,k are below 240
-less_than_variable = 280;
+less_than_variable = 275;
 cumulative_T_i_lessthan_idx = find(cumulative_T_i < less_than_variable);
 
 cumulative_LST(cumulative_T_i_lessthan_idx) = [];
@@ -207,9 +207,7 @@ title(['Correlation Matrix for ',volcano_name,'. N = ',...
     num2str(length(cumulative_LST)),'. More than ',num2str(less_than_variable-273)]);
 
 
-%%
-matfilename = (['Results_of_Inversion_',volcano_name,'.mat']);
-
+%% The Section saves the variables and figures
 Output_Folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/'...
     volcano_name,'/']);
 
@@ -217,9 +215,11 @@ cd(Output_Folder)
 
 fig_filename = (['Correlation Matrix for ',volcano_name,...
     ' More Than ',num2str(less_than_variable-273),'.png']);
+
 saveas(gcf, [Output_Folder,fig_filename]);
+
+matfilename = (['Results_of_Inversion_',volcano_name,'.mat']);
 
 % specify which variables to be saved depending on what is to be read.
 save([Output_Folder,matfilename],'mEst','cumulative_LST','cumulative_T_i',...
     'cumulative_T_j','cumulative_T_k');
-

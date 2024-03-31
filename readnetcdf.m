@@ -18,22 +18,22 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 FullFile = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data';
 
-D = dir(fullfile(FullFile,'Taal*_Day'));
+D = dir(fullfile(FullFile,'Sinabung*_Night'));
 
-for z = 1:31
+for z = 1:21
 
-YYYYMM =D(z).name(6:11);
+YYYYMM =D(z).name(10:15);
 
-DD=D(z).name(12:13);
+DD=D(z).name(16:17);
 
 %% ------------------------Config to change-------------
-Volcano = 'Taal';
-DayNight = 'Day';
+Volcano = 'Sinabung';
+DayNight = 'Night';
 
 
 % CHANGE COORDINATES FOR DIFFERENT VOLCANOES
 [lat_min, lat_max, lon_min,lon_max] = ...
-    create_aoi_coords_function(14.010038,120.997882,0.07,0.02);
+    create_aoi_coords_function(3.170479,98.391995,0.07,0.02);
 
 
 
@@ -51,10 +51,10 @@ Volcano,'_',YYYYMM,DD,'_',DayNight];
 
 % Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Raw_Data/Sinabung_2019';
 
-% Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/',...
-% Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
+Output_Folder = ['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/',...
+Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight,'/'];
 
-Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Taal/Himawari/';
+% Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/Taal/Himawari/';
 
 % Output_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/Sinabung_2019/';
 
@@ -159,6 +159,8 @@ end
 HHMM = time_of_data_collection(17:20);
 
 matfilename = [Volcano,'_',YYYYMM,DD,'_',HHMM,'_',DayNight,'.mat'];
+
+matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
 % specify which variables to be saved depending on what is to be read.
 save([Output_Folder,matfilename],"lat","lon","tbb_07","tbb_08","tbb_09"...

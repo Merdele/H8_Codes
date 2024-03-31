@@ -12,9 +12,9 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 %------------------------Config to change-------------
 
-Volcano = 'Marapi';
-YYYYMM = '202312';
-DD = {'01'};
+Volcano = 'Sinabung';
+YYYYMM = '201906';
+DD = {'01','02','03','04','05','06','07','08'};
 % {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
 %     '17','18','19','20','21','22','23','24','25','26','27','28','29','30'};
 DayNight = 'Night';
@@ -42,7 +42,7 @@ tbbfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
 
 % combining filenames and paths
 DEMfiletoread = ([DEM_Data_Folder,DEMFileName]);
-% btdfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',btdfilename]);
+%btdfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',btdfilename]);
 tbbfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',tbbfilename]);
 % NTBfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',NTBfilename]);
 %stackfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',stackfilename]);
@@ -53,13 +53,14 @@ load(tbbfiletoread)
 % load(NTBfiletoread)
 % load(stackfiletoread)
 
-mkdir([Himawari_Data_Folder,foldername,'/','DEMvsTBB_Night'])
-cd([Himawari_Data_Folder,foldername,'/DEMvsTBB_Night'])
+mkdir([Himawari_Data_Folder,foldername,'/','DEMvsTBB_Night_filtered'])
+cd([Himawari_Data_Folder,foldername,'/DEMvsTBB_Night_filtered'])
 
 
 variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
     'tbb_13','tbb_14','tbb_15','tbb_16'};
-% variableNames = {'tbb_13_14','tbb_13_15','tbb_14_15','tbb_7_13',};
+% variableNames = {'BTD_13_14','BTD_13_15','BTD_14_15','BTD_7_13','BTD_7_14',...
+% 'BTD_7_15'};
 
 %%
 
@@ -91,10 +92,10 @@ yData = [yData;data(:)];
 end
 yData = yData-273;
 
-% greater_than_18_index = yData >=10;
-% 
-% yData = yData(greater_than_18_index);
-% xData = xData(greater_than_18_index);
+greater_than_18_index = yData >=0;
+
+yData = yData(greater_than_18_index);
+xData = xData(greater_than_18_index);
 %%
 
 % Perform least squares fit (linear fit in this case)
@@ -118,11 +119,14 @@ plot(xData, fitLine, 'r-', 'LineWidth', 2);
 % plot(xFit, yFit, 'r-', 'LineWidth', 2, 'DisplayName', 'Linear Fit');
 
 % Customize the plot
-title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
-    strrep(variableNames{k},'_',' ')));
+
+title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s more than 0 Temperature vs Elevation',...
+    strrep(variableNames{k},'_',' '))]);
+% title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
+%     strrep(variableNames{k},'_',' ')));
 xlabel('Elevation');
 ylabel('Brightness Temperature (Celsius)');
-legend('Scatter Plot', 'Least Squares Fit','Location','best');
+legend('Data Points', 'Least Squares Fit','Location','best');
 
 hold off;
 
