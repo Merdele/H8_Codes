@@ -75,7 +75,7 @@ function [results] = performKStest_function(dataStruct,name)
         hold on;
         plot(x2, ecdf2, 'r', 'LineWidth', 2);
         legend('First Data', 'Second Data','Location','best');
-        xlabel('X-axis Label');
+        xlabel('Brightness Temperature (Celsius)');
         ylabel('CDF Value');
         old_title = sprintf('%s_KS-Test between %s and %s',...
             name,fieldNames{i},fieldNames{i+1});

@@ -16,7 +16,7 @@ Volcano = 'Sinabung';
 YYYYMM = '201905';
 DD = {'12',...
     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
-     '26','27','28','29','30'};
+     '26','27','28','29','30','31'};
 % 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
@@ -43,6 +43,13 @@ tbb_14_pcolor = [];
 tbb_15_pcolor = []; 
 tbb_16_pcolor = []; 
 
+% BTD_13_14_pcolour = [];
+% BTD_13_15_pcolour = [];
+% BTD_14_15_pcolour = [];
+% BTD_7_13_pcolour = [];
+% BTD_7_14_pcolour = [];
+% BTD_7_15_pcolour = [];
+
 
 for i = 1:length(DD)
 
@@ -76,6 +83,13 @@ data_14 = pcolormatrix_function('tbb_14',yearmonth,day);
 data_15 = pcolormatrix_function('tbb_15',yearmonth,day);
 data_16 = pcolormatrix_function('tbb_16',yearmonth,day);
 
+% data_13_14 = pcolormatrix_function('BTD_13_14',yearmonth,day);
+% data_13_15 = pcolormatrix_function('BTD_13_15',yearmonth,day);
+% data_14_15 = pcolormatrix_function('BTD_14_15',yearmonth,day);
+% data_7_13 = pcolormatrix_function('BTD_7_13',yearmonth,day);
+% data_7_14 = pcolormatrix_function('BTD_7_14',yearmonth,day);
+% data_7_15 = pcolormatrix_function('BTD_7_15',yearmonth,day);
+
 tbb_07_pcolor = [tbb_07_pcolor,data_07];
 tbb_08_pcolor = [tbb_08_pcolor,data_08];
 tbb_09_pcolor = [tbb_09_pcolor,data_09];
@@ -87,6 +101,14 @@ tbb_14_pcolor = [tbb_14_pcolor,data_14];
 tbb_15_pcolor = [tbb_15_pcolor,data_15];
 tbb_16_pcolor = [tbb_16_pcolor,data_16];
 
+% BTD_13_14_pcolour = [BTD_13_14_pcolour,data_13_14];
+% BTD_13_15_pcolour = [BTD_13_15_pcolour,data_13_15];
+% BTD_14_15_pcolour = [BTD_14_15_pcolour,data_14_15];
+% BTD_7_13_pcolour = [BTD_7_13_pcolour,data_7_13];
+% BTD_7_14_pcolour = [BTD_7_14_pcolour,data_7_14];
+% BTD_7_15_pcolour = [BTD_7_15_pcolour,data_7_15];
+
+ 
 data_07 = [];
 data_08 = [];
 data_09 = [];
@@ -98,12 +120,18 @@ data_14 = [];
 data_15 = [];
 data_16 = [];
 
+% data_13_14 = [];
+% data_13_15 = [];
+% data_14_15 = [];
+% data_7_13 = [];
+% data_7_14 = [];
+% data_7_15 = [];
 
 end
 
 %%
-YYYYMM = '202312';
-DD = {'01','02'};
+YYYYMM = '201906';
+DD = {'01','02','03','04','05','06','07','08'};
 
 for i = 1:length(DD)
 
@@ -137,6 +165,13 @@ data_14 = pcolormatrix_function('tbb_14',yearmonth,day);
 data_15 = pcolormatrix_function('tbb_15',yearmonth,day);
 data_16 = pcolormatrix_function('tbb_16',yearmonth,day);
 
+% data_13_14 = pcolormatrix_function('BTD_13_14',yearmonth,day);
+% data_13_15 = pcolormatrix_function('BTD_13_15',yearmonth,day);
+% data_14_15 = pcolormatrix_function('BTD_14_15',yearmonth,day);
+% data_7_13 = pcolormatrix_function('BTD_7_13',yearmonth,day);
+% data_7_14 = pcolormatrix_function('BTD_7_14',yearmonth,day);
+% data_7_15 = pcolormatrix_function('BTD_7_15',yearmonth,day);
+
 tbb_07_pcolor = [tbb_07_pcolor,data_07];
 tbb_08_pcolor = [tbb_08_pcolor,data_08];
 tbb_09_pcolor = [tbb_09_pcolor,data_09];
@@ -148,6 +183,13 @@ tbb_14_pcolor = [tbb_14_pcolor,data_14];
 tbb_15_pcolor = [tbb_15_pcolor,data_15];
 tbb_16_pcolor = [tbb_16_pcolor,data_16];
 
+% BTD_13_14_pcolour = [BTD_13_14_pcolour,data_13_14];
+% BTD_13_15_pcolour = [BTD_13_15_pcolour,data_13_15];
+% BTD_14_15_pcolour = [BTD_14_15_pcolour,data_14_15];
+% BTD_7_13_pcolour = [BTD_7_13_pcolour,data_7_13];
+% BTD_7_14_pcolour = [BTD_7_14_pcolour,data_7_14];
+% BTD_7_15_pcolour = [BTD_7_15_pcolour,data_7_15];
+
 data_07 = [];
 data_08 = [];
 data_09 = [];
@@ -158,6 +200,13 @@ data_13 = [];
 data_14 = [];
 data_15 = [];
 data_16 = [];
+
+% data_13_14 = [];
+% data_13_15 = [];
+% data_14_15 = [];
+% data_7_13 = [];
+% data_7_14 = [];
+% data_7_15 = [];
 
 
 end
@@ -172,3 +221,7 @@ matfilename = [Volcano,'_',YYYYMM,'_',DayNight,'_Pcolors.mat'];
 save([Output_Folder,'/',matfilename],"tbb_16_pcolor","tbb_15_pcolor",...
     "tbb_14_pcolor","tbb_13_pcolor","tbb_12_pcolor","tbb_11_pcolor",...
     "tbb_10_pcolor","tbb_09_pcolor","tbb_08_pcolor","tbb_07_pcolor")
+
+% save([Output_Folder,'/',matfilename],"BTD_7_13_pcolour","BTD_14_15_pcolour",...
+%     "BTD_13_15_pcolour","BTD_13_14_pcolour","BTD_7_15_pcolour","BTD_7_14_pcolour")
+

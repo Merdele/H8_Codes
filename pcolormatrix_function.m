@@ -32,14 +32,14 @@ dataDAY = [];
 
                 hour_to_index = hours{j};
 
-                containsName = (['NC_H09_',YYYYMM,day,'_',hour_to_index]);
+                containsName = (['NC_H08_',YYYYMM,day,'_',hour_to_index]);
                
                 % this section accounts for missing data and puts 0 in its
                 % place
 
                 try
     
-                BTdata = myStruct.(containsName)(3,3);
+                BTdata = myStruct.(containsName)(4,4);
                 
                 dataDAY = [dataDAY;BTdata];
     
