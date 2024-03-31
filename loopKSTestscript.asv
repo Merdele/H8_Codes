@@ -1,0 +1,73 @@
+%% This Script uses perform_KSTEST function to save plots of KS Test  
+% KS test are performed for the intervals of the data downloaded
+% E.g. 1400 and 1410. 1410 and 1420
+% created by Denny. Last updated 3 October 2023.
+
+clear
+
+% add path for the create_aoi_coords function
+addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
+Data_Folder = ...
+'/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
+
+%------------------------Config to change-------------
+Volcano = 'Sinabung';
+YYYYMM = '201905';
+DD = {'16','17','18','19','20','21','22','23','24','25',...
+    '26','27','28','29','30','31'};
+DayNight = 'Night';
+
+%------------------------------------------------------
+for j = 1:length(DD)
+
+foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{j},'_',DayNight];
+matfilename = [Volcano,'_',YYYYMM,DD{j},'_',DayNight,'.mat'];
+
+% % check if file exists
+% if exist ([Data_Folder,foldername,'/',matfilename], 'file') == 0
+%     error ('File does not exist!')
+% end
+
+load([Data_Folder,foldername,'/',matfilename])
+
+clear("lat")
+clear("lon")
+
+mkdir([Data_Folder,foldername,'/KSTestTBB'])
+cd([Data_Folder,foldername,'/KSTestTBB'])
+%% This section performs the consecutive KStest for every data collection time. 
+
+% Get a list of variable names in the workspace
+variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12','tbb_13',...
+    'tbb_14','tbb_15','tbb_16'};
+
+% Loop through the variable names
+for i = 1:numel(variableNames)
+    try
+    % Get the current variable name from the list
+    currentVarName = variableNames{i};
+    
+    % Use evalin to retrieve the variable from the workspace
+    currentVarValue = evalin('base', currentVarName);
+    
+    % Call the create_surf_gif function with the retrieved variable as an argument
+    %create_surf_gif(currentVarValue, currentVarName);
+
+    % call histoplot function
+    %histoplot(currentVarValue,1)
+
+    KSTestResults.(variableNames{i}) = ...
+        performKStest_function(currentVarValue,currentVarName); % [variableNames{2},'_KSTest']
+
+    end
+
+end
+
+end
+%% This section saves the KS tests results in a .matfile
+
+% ksfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'KSTest.mat'];
+% 
+% % specify which variables to be saved depending on what is to be read.
+% save(ksfilename,"KSTestResults")
+
