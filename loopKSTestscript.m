@@ -11,19 +11,22 @@ Data_Folder = ...
 '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 %------------------------Config to change-------------
-Volcano = 'Marapi';
-YYYYMM = '202312';
-DD = '02';
+Volcano = 'Sinabung';
+YYYYMM = '201905';
+DD = {'16','17','18','19','20','21','22','23','24','25',...
+    '26','27','28','29','30','31'};
 DayNight = 'Night';
 
 %------------------------------------------------------
-foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD,'_',DayNight];
-matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
+for j = 1:length(DD)
 
-% check if file exists
-if exist ([Data_Folder,foldername,'/',matfilename], 'file') == 0
-    error ('File does not exist!')
-end
+foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{j},'_',DayNight];
+matfilename = [Volcano,'_',YYYYMM,DD{j},'_',DayNight,'.mat'];
+
+% % check if file exists
+% if exist ([Data_Folder,foldername,'/',matfilename], 'file') == 0
+%     error ('File does not exist!')
+% end
 
 load([Data_Folder,foldername,'/',matfilename])
 
@@ -60,6 +63,7 @@ for i = 1:numel(variableNames)
 
 end
 
+end
 %% This section saves the KS tests results in a .matfile
 
 % ksfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'KSTest.mat'];
