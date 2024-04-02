@@ -12,10 +12,10 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 %------------------------Config to change-------------
 
-Volcano = 'Marapi';
-YYYYMM = '202311';
-DD = {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
-    '17','18','19','20','21','22','23','24','25','26','27','28','29','30'};
+Volcano = 'Sinabung';
+YYYYMM = '201905';
+DD = {'12','13','14','15','16',...
+    '17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'};
 % {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
 %     '17','18','19','20','21','22','23','24','25','26','27','28','29','30'};
 DayNight = 'Night';
@@ -31,6 +31,8 @@ DEMFileName = '/resampled_dem.tif';
 
 %%
 
+cumulative_coefficients = [];
+
 for h = 1:length(DD)
 
 % creating filenames
@@ -43,7 +45,7 @@ tbbfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
 
 % combining filenames and paths
 DEMfiletoread = ([DEM_Data_Folder,DEMFileName]);
-%btdfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',btdfilename]);
+% btdfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',btdfilename]);
 tbbfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',tbbfilename]);
 % NTBfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',NTBfilename]);
 %stackfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',stackfilename]);
@@ -57,7 +59,7 @@ load(tbbfiletoread)
 mkdir([Himawari_Data_Folder,foldername,'/','DEMvsTBB_Night'])
 cd([Himawari_Data_Folder,foldername,'/DEMvsTBB_Night'])
 
-
+% 
 variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
     'tbb_13','tbb_14','tbb_15','tbb_16'};
 % variableNames = {'BTD_13_14','BTD_13_15','BTD_14_15','BTD_7_13','BTD_7_14',...
@@ -103,37 +105,51 @@ xData = xData(greater_than_18_index);
 degree = 1;  % Degree of the polynomial (1 for linear fit)
 coefficients = polyfit(xData, yData, degree);
 
-figure
-hold on
+YYYYMMDD = [YYYYMM,DD{h}];
 
-% Create a scatter plot
-scatter(xData, yData);
+one_row_coefficients = {YYYYMMDD,currentVarName,coefficients(1)*1000};
+
+cumulative_coefficients=[cumulative_coefficients;one_row_coefficients];
+
+% figure
+% hold on
+% 
+% % Create a scatter plot
+% scatter(xData, yData);
+% 
+% 
+% % Plot the least squares fit line
+% fitLine = polyval(coefficients, xData);
+% plot(xData, fitLine, 'r-', 'LineWidth', 2);
+% 
+% % % Plot the linear fit line
+% % xFit = linspace(min(xData), max(xData), 100);
+% % yFit = predict(mdl, xFit');
+% % plot(xFit, yFit, 'r-', 'LineWidth', 2, 'DisplayName', 'Linear Fit');
+% 
+% % Customize the plot
+% 
+% title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s Temperature vs Elevation',...
+%     strrep(variableNames{k},'_',' '))]);
+% % title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
+% %     strrep(variableNames{k},'_',' ')));
+% xlabel('Elevation');
+% ylabel('Brightness Temperature (Celsius)');
+% legend('Data Points', 'Least Squares Fit','Location','best');
+% 
+% hold off;
+
+% fig_filename = ([strrep(variableNames{k},'_',' '),' TempvsElev.png']);
+% saveas(gcf, fig_filename);
+% close
 
 
-% Plot the least squares fit line
-fitLine = polyval(coefficients, xData);
-plot(xData, fitLine, 'r-', 'LineWidth', 2);
+Output_Folder = ([Himawari_Data_Folder,'/',Volcano,'_',YYYYMM]);
+matfilename = [Volcano,'_',YYYYMM,'_',DayNight,'_coefficients_0.mat'];
 
-% % Plot the linear fit line
-% xFit = linspace(min(xData), max(xData), 100);
-% yFit = predict(mdl, xFit');
-% plot(xFit, yFit, 'r-', 'LineWidth', 2, 'DisplayName', 'Linear Fit');
+% specify which variables to be saved depending on what is to be read.
+save([Output_Folder,'/',matfilename],"cumulative_coefficients")
 
-% Customize the plot
-
-title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s more than 0 Temperature vs Elevation',...
-    strrep(variableNames{k},'_',' '))]);
-% title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
-%     strrep(variableNames{k},'_',' ')));
-xlabel('Elevation');
-ylabel('Brightness Temperature (Celsius)');
-legend('Data Points', 'Least Squares Fit','Location','best');
-
-hold off;
-
-fig_filename = ([strrep(variableNames{k},'_',' '),' TempvsElev.png']);
-saveas(gcf, fig_filename);
-close
 
 end
 
