@@ -216,10 +216,10 @@ cd(Output_Folder)
 fig_filename = (['Correlation Matrix for ',volcano_name,...
     ' More Than ',num2str(less_than_variable-273),'.png']);
 
-saveas(gcf, [Output_Folder,fig_filename]);
-
-matfilename = (['Results_of_Inversion_',volcano_name,'.mat']);
-
-% specify which variables to be saved depending on what is to be read.
-save([Output_Folder,matfilename],'mEst','cumulative_LST','cumulative_T_i',...
-    'cumulative_T_j','cumulative_T_k');
+% saveas(gcf, [Output_Folder,fig_filename]);
+% 
+% matfilename = (['Results_of_Inversion_',volcano_name,'.mat']);
+% 
+% % specify which variables to be saved depending on what is to be read.
+% save([Output_Folder,matfilename],'mEst','cumulative_LST','cumulative_T_i',...
+%     'cumulative_T_j','cumulative_T_k');
