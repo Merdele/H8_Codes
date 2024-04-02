@@ -9,8 +9,8 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %------------------------Config to change-------------
 
 Volcano = 'Sinabung';
-YYYYMM = '201905';
-DD = {'31'};
+YYYYMM = '201906';
+DD = {'01'};
 
 % 12','13','14','15','16',...
 %     '17','18','19','20','21','22','23','24','25','26','27','28','29','30'

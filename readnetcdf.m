@@ -20,7 +20,7 @@ FullFile = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_R
 
 D = dir(fullfile(FullFile,'Sinabung*_Night'));
 
-for z = 1:21
+for z = 28%1:21
 
 YYYYMM =D(z).name(10:15);
 
@@ -167,9 +167,9 @@ save([Output_Folder,matfilename],"lat","lon","tbb_07","tbb_08","tbb_09"...
     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
     "SOA","SAA","SOZ");
 
-clear("lat","lon","tbb_07","tbb_08","tbb_09"...
-    ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
-    "SOA","SAA","SOZ")
+% clear("lat","lon","tbb_07","tbb_08","tbb_09"...
+%     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
+%     "SOA","SAA","SOZ")
 
 
 

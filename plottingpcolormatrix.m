@@ -1,7 +1,7 @@
 %% This script creates a pcolor plot using the matrixes consolidated in 
 % gettingpcolormatrix script
 
-clear
+%clear
                 
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
@@ -37,7 +37,7 @@ DayNight = 'Night';
 
 Matfile_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 Folder_Name = ([Volcano,'_',Data_YYYYMM]);
-MatFile_Name = ([Volcano,'_',Data_YYYYMM,'_',DayNight,'_Pcolors.mat']);
+MatFile_Name = ([Volcano,'_',Data_YYYYMM,'_',DayNight,'_BTD_Pcolors.mat']);
 
 File_To_Load = ([Matfile_Data_Folder,Folder_Name,'/',MatFile_Name]);
 
@@ -53,12 +53,17 @@ load(File_To_Load)
 
 
 % startDate = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]);
-startDate = datetime('2023-11-01');
+startDate = datetime('2019-05-12');
 dates = startDate + days(0:length(DD)-1);
+% 
+% VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
+%     'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
+%     'tbb_15_pcolor','tbb_16_pcolor'};
 
-VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
-    'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
-    'tbb_15_pcolor','tbb_16_pcolor'};
+VariableNames = {'BTD_7_13_pcolour','BTD_14_15_pcolour',...
+    'BTD_13_15_pcolour','BTD_13_14_pcolour','BTD_7_15_pcolour','BTD_7_14_pcolour'
+};
+
 
 for i = 1:length(VariableNames)
 
@@ -66,7 +71,7 @@ for i = 1:length(VariableNames)
 
     VarValue = evalin('base', VarName);
    
-    myMatrix =  VarValue;
+    myMatrix =  flipud(VarValue);
     
  
     numDays = length(DD);
@@ -74,7 +79,7 @@ for i = 1:length(VariableNames)
     
     %%
     % Generate time vector from 2am to 5am 
-    startTime = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]) + hours(2);  % Start time at 2am
+    startTime = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]) + hours(1);  % Start time at 2am
     endTime = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]) + hours(5);    % End time at 5am
     timeVector = linspace(startTime, endTime, timeIntervals)';
     
@@ -90,12 +95,12 @@ for i = 1:length(VariableNames)
     %shading flat;
    
     % Customize the plot
-    title(sprintf('%s for Mt Marapi',strrep(VarName,'_',' ')));
+    title([strrep(VarName,'_',' '), ' for Mt ',Volcano]);
     xlabel('Date');
     ylabel('Time');
     colorbar;
 
-    fig_filename = ([VarName,'_for_Mt_Marapi.png']);
+    fig_filename = ([VarName,'_for_Mt_',Volcano,'.png']);
     saveas(gcf, fig_filename);
     close
 

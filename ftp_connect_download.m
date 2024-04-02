@@ -13,7 +13,7 @@
 % saved according to the following variables
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = {'01'};
+DD = {'08'};
 
 % '12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...

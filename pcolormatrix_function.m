@@ -45,7 +45,7 @@ dataDAY = [];
     
                 catch
                 
-                dataDAY =[dataDAY;0];
+                dataDAY =[dataDAY;NaN];
                 
                 end
 
