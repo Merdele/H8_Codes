@@ -21,7 +21,7 @@ YYYYMM = '202311';
 Data_YYYYMM = '202312';
 DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
-    '26','27','28','29','30','31','01','02'};
+    '26','27','28','29','30','01','02'};
 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
@@ -37,7 +37,7 @@ DayNight = 'Night';
 
 Matfile_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 Folder_Name = ([Volcano,'_',Data_YYYYMM]);
-MatFile_Name = ([Volcano,'_',Data_YYYYMM,'_',DayNight,'_BTD_Pcolors.mat']);
+MatFile_Name = ([Volcano,'_',Data_YYYYMM,'_',DayNight,'_Pcolors.mat']);
 
 File_To_Load = ([Matfile_Data_Folder,Folder_Name,'/',MatFile_Name]);
 
@@ -56,13 +56,13 @@ load(File_To_Load)
 startDate = datetime('2023-11-01');
 dates = startDate + days(0:length(DD)-1);
 
-% VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
-%     'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
-%     'tbb_15_pcolor','tbb_16_pcolor'};
+VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
+    'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
+    'tbb_15_pcolor','tbb_16_pcolor'};
 
-VariableNames = {'BTD_7_13_pcolour','BTD_14_15_pcolour',...
-    'BTD_13_15_pcolour','BTD_13_14_pcolour','BTD_7_15_pcolour','BTD_7_14_pcolour'
-};
+% VariableNames = {'BTD_7_13_pcolour','BTD_14_15_pcolour',...
+%     'BTD_13_15_pcolour','BTD_13_14_pcolour','BTD_7_15_pcolour','BTD_7_14_pcolour'
+% };
 
 
 for i = 1:length(VariableNames)
