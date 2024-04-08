@@ -20,7 +20,7 @@ FullFile = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_R
 
 D = dir(fullfile(FullFile,'Sinabung*_Night'));
 
-for z = 28%1:21
+for z = 22:29
 
 YYYYMM =D(z).name(10:15);
 

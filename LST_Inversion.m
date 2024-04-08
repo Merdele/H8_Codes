@@ -158,7 +158,7 @@ cumulative_T_j(nan_idx) = [];
 cumulative_T_k(nan_idx) = [];
 
 %% removes indexes for all variables where BT for Ti,j,k are below 240
-less_than_variable = 275;
+less_than_variable = -260;
 cumulative_T_i_lessthan_idx = find(cumulative_T_i < less_than_variable);
 
 cumulative_LST(cumulative_T_i_lessthan_idx) = [];
