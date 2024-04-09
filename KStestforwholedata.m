@@ -10,26 +10,21 @@ Data_Folder = ...
 '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 %------------------------Config to change-------------
-<<<<<<< Updated upstream
-Volcano = 'Sinabung';
-YYYYMM = '201906';
-DD = {'02','03','04','05','06','07','08','09'};
-=======
 Volcano = 'Marapi';
 YYYYMM = '202311';
-DD = {'23','24','25','26','27','28','29','30'};
-% {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
-%     '17','18','19','20','21','22','23','24','25','26','27','28','29','30'};
->>>>>>> Stashed changes
+DD = {'02','03','04','05','06','07','08','09'};
 DayNight = 'Night';
+
+mkdir([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
+cd([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
 
 %------------------------------------------------------
 for k = 1:length(DD)-1
 
 beforeFoldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{k},'_',DayNight];
 afterFoldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{k+1},'_',DayNight];
-beforeMatfilename = [Volcano,'_',YYYYMM,DD{k},'_',DayNight,'_BTD.mat'];
-afterMatfilename = [Volcano,'_',YYYYMM,DD{k+1},'_',DayNight,'_BTD.mat'];
+beforeMatfilename = [Volcano,'_',YYYYMM,DD{k},'_',DayNight,'.mat'];
+afterMatfilename = [Volcano,'_',YYYYMM,DD{k+1},'_',DayNight,'.mat'];
 
 % % check if file exists
 % if exist ([Data_Folder,foldername,'/',matfilename], 'file') == 0
@@ -46,28 +41,70 @@ clear("lon")
 
 %%
 
-tbb_13_14_before = tbb_13_14;
-tbb_13_15_before = tbb_13_15;
-tbb_14_15_before = tbb_14_15;
-tbb_7_13_before = tbb_7_13;
+% tbb_13_14_before = tbb_13_14;
+% tbb_13_15_before = tbb_13_15;
+% tbb_14_15_before = tbb_14_15;
+% tbb_7_13_before = tbb_7_13;
+% 
+% clear("tbb_7_13","tbb_14_15","tbb_13_15","tbb_13_14")
+% 
+% load([Data_Folder,afterFoldername,'/',afterMatfilename])
+% 
+% tbb_13_14_after = tbb_13_14;
+% tbb_13_15_after = tbb_13_15;
+% tbb_14_15_after = tbb_14_15;
+% tbb_7_13_after = tbb_7_13;
+% 
+% 
+% before_variableNames = {'tbb_13_15_before','tbb_7_13_before',...
+%     'tbb_13_14_before','tbb_14_15_before'};
+% 
+% after_variableNames = {'tbb_13_15_after','tbb_7_13_after',...
+%     'tbb_13_14_after','tbb_14_15_after'};
 
-clear("tbb_7_13","tbb_14_15","tbb_13_15","tbb_13_14")
+tbb_07_before = tbb_07;
+tbb_08_before = tbb_08;
+tbb_09_before = tbb_09;
+tbb_10_before = tbb_10;
+tbb_11_before = tbb_11;
+tbb_12_before = tbb_12;
+tbb_13_before = tbb_13;
+tbb_14_before = tbb_14;
+tbb_15_before = tbb_15;
+tbb_16_before = tbb_16;
+
+clear("tbb_07","tbb_08","tbb_09","tbb_10","tbb_11","tbb_12","tbb_13",...
+    "tbb_14","tbb_15","tbb_16")
 
 load([Data_Folder,afterFoldername,'/',afterMatfilename])
 
-tbb_13_14_after = tbb_13_14;
-tbb_13_15_after = tbb_13_15;
-tbb_14_15_after = tbb_14_15;
-tbb_7_13_after = tbb_7_13;
+tbb_07_after = tbb_07;
+tbb_08_after = tbb_08;
+tbb_09_after = tbb_09;
+tbb_10_after = tbb_10;
+tbb_11_after = tbb_11;
+tbb_12_after = tbb_12;
+tbb_13_after = tbb_13;
+tbb_14_after = tbb_14;
+tbb_15_after = tbb_15;
+tbb_16_after = tbb_16;
 
 
-before_variableNames = {'tbb_13_15_before','tbb_7_13_before',...
-    'tbb_13_14_before','tbb_14_15_before'};
+before_variableNames = {'tbb_07_before','tbb_08_before','tbb_09_before',...
+    'tbb_10_before','tbb_11_before','tbb_12_before','tbb_13_before',...
+    'tbb_14_before','tbb_15_before','tbb_16_before'};
 
-after_variableNames = {'tbb_13_15_after','tbb_7_13_after',...
-    'tbb_13_14_after','tbb_14_15_after'};
+after_variableNames = {'tbb_07_after','tbb_08_after','tbb_09_after',...
+    'tbb_10_after','tbb_11_after','tbb_12_after','tbb_13_after',...
+    'tbb_14_after','tbb_15_after','tbb_16_after'};
 
-for i = 1%:length(before_variableNames)
+variableNames = {'tbb_07','tbb_08','tbb_09',...
+    'tbb_10','tbb_11','tbb_12','tbb_13',...
+    'tbb_14','tbb_15','tbb_16'};
+
+
+
+for i = 1:length(before_variableNames)
     
     % Get the current variable name from the list
     beforeVarName = before_variableNames{i};
@@ -89,22 +126,23 @@ for i = 1%:length(before_variableNames)
 
     afterfieldName = fieldnames(afterStruct);
 
-    for j = 1:length(beforefieldName)-1
+    beforeCat = [];
+    afterCat = [];
 
-    beforeCat = vertcat(beforeStruct.(beforefieldName{j}),...
-        beforeStruct.(beforefieldName{j+1}));
+    for j = 1:length(beforefieldName)
+
+    beforeCat = [beforeCat;beforeStruct.(beforefieldName{j})(:)];
 
     end
 
-    for j = 1:length(afterfieldName)-1
+    for j = 1:length(afterfieldName)
     
-    afterCat = vertcat(afterStruct.(afterfieldName{j}),...
-        afterStruct.(afterfieldName{j+1}));
+    afterCat = [afterCat;afterStruct.(afterfieldName{j})(:)];
 
     end
 
-    referenceData = beforeCat(:);
-    currentData = afterCat(:);
+    referenceData = beforeCat(:) - 273;
+    currentData = afterCat(:) - 273;
 
      % Perform the KS test to compare the current data to the reference data
         % can modify to test with other distributions
@@ -127,33 +165,20 @@ for i = 1%:length(before_variableNames)
         [ecdf1, x1] = ecdf(referenceData);
         [ecdf2, x2] = ecdf(currentData);
         
-        %figure;
+        figure;
         plot(x1, ecdf1, 'b', 'LineWidth', 2);
         hold on;
         plot(x2, ecdf2, 'r', 'LineWidth', 2);
-<<<<<<< Updated upstream
-        legend('First Data', 'Second Data','Location','best');
-        xlabel('X-axis Label');
-=======
-        legend('Location','best');
+        legend('Day Before', 'Day After','Location','best');
         xlabel('Brightness Temperature (Celsius)');
->>>>>>> Stashed changes
         ylabel('CDF Value');
-        old_title = sprintf('%s_KS-Test between %s and %s',before_variableNames{i},...
+        old_title = sprintf('%s_KS-Test between %s and %s',variableNames{i},...
             ([Volcano,'_',YYYYMM,DD{k}]),...
             ([Volcano,'_',YYYYMM,DD{k+1}]));
         new_title = strrep(old_title,'_',' ');
-<<<<<<< Updated upstream
         title(new_title)
-        % title(sprintf('%s_KS-Test between %s and %s',...
-        %     name,fieldNames{i},fieldNames{i+1}));
-=======
-        title([new_title,'. N=',num2str(length(currentData))])
->>>>>>> Stashed changes
 
         % Save the figure as an image file (e.g., PNG)
-        % fig_filename = sprintf('%s_ks_test_between %s and %s.png',...
-        %     name,fieldNames{i},fieldNames{i+1});
         fig_filename = ([new_title,'.png']);
         saveas(gcf, fig_filename);
 
