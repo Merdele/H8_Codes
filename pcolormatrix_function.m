@@ -40,6 +40,10 @@ dataDAY = [];
                 try
     
                 BTdata = myStruct.(containsName)(4,4);
+
+                %Marapi(-0.391642,100.457107,0.04,0.02); (4,4)
+                %Sinabung(3.170479,98.391995,0.07,0.02); (5,5)
+                %Taal(14.010038,120.997882,0.07,0.02)
                 
                 dataDAY = [dataDAY;BTdata];
     

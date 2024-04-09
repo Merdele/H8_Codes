@@ -10,16 +10,16 @@ Data_Folder = ...
 '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 %------------------------Config to change-------------
-Volcano = 'Marapi';
-YYYYMM = '202311';
+Volcano = 'Sinabung';
+YYYYMM = '201906';
 DD = {'02','03','04','05','06','07','08','09'};
 DayNight = 'Night';
 
-mkdir([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
-cd([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
+mkdir([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST])
+cd([Data_Folder,'/',Volcano,'_',YYYYMM])
 
 %------------------------------------------------------
-for k = 1:length(DD)-1
+for k = 1%:length(DD)-1
 
 beforeFoldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{k},'_',DayNight];
 afterFoldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{k+1},'_',DayNight];
@@ -104,7 +104,7 @@ variableNames = {'tbb_07','tbb_08','tbb_09',...
 
 
 
-for i = 1:length(before_variableNames)
+for i = 1%:length(before_variableNames)
     
     % Get the current variable name from the list
     beforeVarName = before_variableNames{i};

@@ -158,7 +158,7 @@ end
 
 HHMM = time_of_data_collection(17:20);
 
-matfilename = [Volcano,'_',YYYYMM,DD,'_',HHMM,'_',DayNight,'.mat'];
+%matfilename = [Volcano,'_',YYYYMM,DD,'_',HHMM,'_',DayNight,'.mat'];
 
 matfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'.mat'];
 
@@ -167,9 +167,9 @@ save([Output_Folder,matfilename],"lat","lon","tbb_07","tbb_08","tbb_09"...
     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
     "SOA","SAA","SOZ");
 
-% clear("lat","lon","tbb_07","tbb_08","tbb_09"...
-%     ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
-%     "SOA","SAA","SOZ")
+clear("lat","lon","tbb_07","tbb_08","tbb_09"...
+    ,"tbb_10","tbb_11","tbb_12","tbb_13","tbb_14","tbb_15","tbb_16","SAZ",...
+    "SOA","SAA","SOZ")
 
 
 
