@@ -10,9 +10,17 @@ Data_Folder = ...
 '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 %------------------------Config to change-------------
+<<<<<<< Updated upstream
 Volcano = 'Sinabung';
 YYYYMM = '201906';
 DD = {'02','03','04','05','06','07','08','09'};
+=======
+Volcano = 'Marapi';
+YYYYMM = '202311';
+DD = {'23','24','25','26','27','28','29','30'};
+% {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
+%     '17','18','19','20','21','22','23','24','25','26','27','28','29','30'};
+>>>>>>> Stashed changes
 DayNight = 'Night';
 
 %------------------------------------------------------
@@ -59,7 +67,7 @@ before_variableNames = {'tbb_13_15_before','tbb_7_13_before',...
 after_variableNames = {'tbb_13_15_after','tbb_7_13_after',...
     'tbb_13_14_after','tbb_14_15_after'};
 
-for i = 1:length(before_variableNames)
+for i = 1%:length(before_variableNames)
     
     % Get the current variable name from the list
     beforeVarName = before_variableNames{i};
@@ -119,20 +127,29 @@ for i = 1:length(before_variableNames)
         [ecdf1, x1] = ecdf(referenceData);
         [ecdf2, x2] = ecdf(currentData);
         
-        figure;
+        %figure;
         plot(x1, ecdf1, 'b', 'LineWidth', 2);
         hold on;
         plot(x2, ecdf2, 'r', 'LineWidth', 2);
+<<<<<<< Updated upstream
         legend('First Data', 'Second Data','Location','best');
         xlabel('X-axis Label');
+=======
+        legend('Location','best');
+        xlabel('Brightness Temperature (Celsius)');
+>>>>>>> Stashed changes
         ylabel('CDF Value');
         old_title = sprintf('%s_KS-Test between %s and %s',before_variableNames{i},...
             ([Volcano,'_',YYYYMM,DD{k}]),...
             ([Volcano,'_',YYYYMM,DD{k+1}]));
         new_title = strrep(old_title,'_',' ');
+<<<<<<< Updated upstream
         title(new_title)
         % title(sprintf('%s_KS-Test between %s and %s',...
         %     name,fieldNames{i},fieldNames{i+1}));
+=======
+        title([new_title,'. N=',num2str(length(currentData))])
+>>>>>>> Stashed changes
 
         % Save the figure as an image file (e.g., PNG)
         % fig_filename = sprintf('%s_ks_test_between %s and %s.png',...
