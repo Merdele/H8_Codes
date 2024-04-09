@@ -16,12 +16,14 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
 %     '26','27','28','29','30','01','02'};
 
-Volcano = 'Sinabung';
-YYYYMM = '201905';
-Data_YYYYMM = '201906';
-DD = {'12',...
+Volcano = 'Marapi';
+YYYYMM = '202311';
+Data_YYYYMM = '202312';
+DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
-    '26','27','28','29','30','31','01','02','03','04','05','06','07','08'};
+    '26','27','28','29','30','01','02','03'};
+% add one additional day
+
 % 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
@@ -60,6 +62,9 @@ VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor'
     'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
     'tbb_15_pcolor','tbb_16_pcolor'};
 
+% VariableNames = {'BTD_7_13_pcolour','BTD_7_14_pcolour','BTD_7_15_pcolour',...
+    % 'BTD_13_14_pcolour','BTD_13_15_pcolour','BTD_14_15_pcolour',};
+
 for i = 1:length(VariableNames)
 
     VarName = VariableNames{i};
@@ -74,7 +79,7 @@ for i = 1:length(VariableNames)
     
     %%
     % Generate time vector from 2am to 5am 
-    startTime = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]) + hours(2);  % Start time at 2am
+    startTime = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]) + hours(1);  % Start time at 2am
     endTime = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]) + hours(5);    % End time at 5am
     timeVector = linspace(startTime, endTime, timeIntervals)';
     

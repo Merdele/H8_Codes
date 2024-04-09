@@ -13,9 +13,8 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %------------------------Config to change-------------
 
 Volcano = 'Sinabung';
-YYYYMM = '201905';
-DD = {'12','13','14','15','16',...
-    '17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'};
+YYYYMM = '201906';
+DD = {'02','03','04','05','06','07','08'};
 % {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
 %     '17','18','19','20','21','22','23','24','25','26','27','28','29','30'};
 DayNight = 'Night';
@@ -31,15 +30,13 @@ DEMFileName = '/resampled_dem.tif';
 
 %%
 
-cumulative_coefficients = [];
-
 for h = 1:length(DD)
 
 % creating filenames
 foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{h},'_',DayNight];
 % foldername = [Volcano,'_2019'];
 tbbfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
-% btdfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'_BTD.mat'];
+% btdfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
 % NTBfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_NTB.mat'];
 %stackfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_Stacked.mat'];
 
@@ -56,8 +53,8 @@ load(tbbfiletoread)
 % load(NTBfiletoread)
 % load(stackfiletoread)
 
-mkdir([Himawari_Data_Folder,foldername,'/','DEMvsTBB_Night'])
-cd([Himawari_Data_Folder,foldername,'/DEMvsTBB_Night'])
+mkdir([Himawari_Data_Folder,foldername,'/','DEMvsTBB_Night_filtered_10'])
+cd([Himawari_Data_Folder,foldername,'/DEMvsTBB_Night_filtered_10'])
 
 % 
 variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
@@ -95,7 +92,7 @@ yData = [yData;data(:)];
 end
 yData = yData-273;
 
-greater_than_18_index = yData >=0;
+greater_than_18_index = yData >=10;
 
 yData = yData(greater_than_18_index);
 xData = xData(greater_than_18_index);
@@ -105,50 +102,37 @@ xData = xData(greater_than_18_index);
 degree = 1;  % Degree of the polynomial (1 for linear fit)
 coefficients = polyfit(xData, yData, degree);
 
-YYYYMMDD = [YYYYMM,DD{h}];
+figure
+hold on
 
-one_row_coefficients = {YYYYMMDD,currentVarName,coefficients(1)*1000};
-
-cumulative_coefficients=[cumulative_coefficients;one_row_coefficients];
-
-% figure
-% hold on
-% 
-% % Create a scatter plot
-% scatter(xData, yData);
-% 
-% 
-% % Plot the least squares fit line
-% fitLine = polyval(coefficients, xData);
-% plot(xData, fitLine, 'r-', 'LineWidth', 2);
-% 
-% % % Plot the linear fit line
-% % xFit = linspace(min(xData), max(xData), 100);
-% % yFit = predict(mdl, xFit');
-% % plot(xFit, yFit, 'r-', 'LineWidth', 2, 'DisplayName', 'Linear Fit');
-% 
-% % Customize the plot
-% 
-% title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s Temperature vs Elevation',...
-%     strrep(variableNames{k},'_',' '))]);
-% % title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
-% %     strrep(variableNames{k},'_',' ')));
-% xlabel('Elevation');
-% ylabel('Brightness Temperature (Celsius)');
-% legend('Data Points', 'Least Squares Fit','Location','best');
-% 
-% hold off;
-
-% fig_filename = ([strrep(variableNames{k},'_',' '),' TempvsElev.png']);
-% saveas(gcf, fig_filename);
-% close
+% Create a scatter plot
+scatter(xData, yData);
 
 
-Output_Folder = ([Himawari_Data_Folder,'/',Volcano,'_',YYYYMM]);
-matfilename = [Volcano,'_',YYYYMM,'_',DayNight,'_coefficients_0.mat'];
+% Plot the least squares fit line
+fitLine = polyval(coefficients, xData);
+plot(xData, fitLine, 'r-', 'LineWidth', 2);
 
-% specify which variables to be saved depending on what is to be read.
-save([Output_Folder,'/',matfilename],"cumulative_coefficients")
+% % Plot the linear fit line
+% xFit = linspace(min(xData), max(xData), 100);
+% yFit = predict(mdl, xFit');
+% plot(xFit, yFit, 'r-', 'LineWidth', 2, 'DisplayName', 'Linear Fit');
+
+% Customize the plot
+
+title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s more than 10 Temperature vs Elevation',...
+    strrep(variableNames{k},'_',' '))]);
+% title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
+%     strrep(variableNames{k},'_',' ')));
+xlabel('Elevation');
+ylabel('Brightness Temperature (Celsius)');
+legend('Data Points', 'Least Squares Fit','Location','best');
+
+hold off;
+
+fig_filename = ([strrep(variableNames{k},'_',' '),' TempvsElev.png']);
+saveas(gcf, fig_filename);
+close
 
 
 end

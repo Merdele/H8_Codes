@@ -13,9 +13,8 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %------------------------Config to change-------------
 
 Volcano = 'Sinabung';
-YYYYMM = '201905';
-DD = {'12','13','14','15','16',...
-    '17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'};
+YYYYMM = '201906';
+DD = {'02','03','04','05','06','07','08'};
 % {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
 %     '17','18','19','20','21','22','23','24','25','26','27','28','29','30'};
 DayNight = 'Night';
@@ -37,7 +36,7 @@ for h = 1:length(DD)
 foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{h},'_',DayNight];
 % foldername = [Volcano,'_2019'];
 tbbfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
-% btdfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'_BTD.mat'];
+% btdfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
 % NTBfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_NTB.mat'];
 %stackfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_Stacked.mat'];
 
@@ -54,8 +53,8 @@ load(tbbfiletoread)
 % load(NTBfiletoread)
 % load(stackfiletoread)
 
-mkdir([Himawari_Data_Folder,foldername,'/','DEMvsTBB_Night'])
-cd([Himawari_Data_Folder,foldername,'/DEMvsTBB_Night'])
+mkdir([Himawari_Data_Folder,foldername,'/','DEMvsTBB_Night_filtered_10'])
+cd([Himawari_Data_Folder,foldername,'/DEMvsTBB_Night_filtered_10'])
 
 % 
 variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
@@ -93,7 +92,7 @@ yData = [yData;data(:)];
 end
 yData = yData-273;
 
-greater_than_18_index = yData >=0;
+greater_than_18_index = yData >=10;
 
 yData = yData(greater_than_18_index);
 xData = xData(greater_than_18_index);
@@ -121,7 +120,7 @@ plot(xData, fitLine, 'r-', 'LineWidth', 2);
 
 % Customize the plot
 
-title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s Temperature vs Elevation',...
+title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s more than 10 Temperature vs Elevation',...
     strrep(variableNames{k},'_',' '))]);
 % title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
 %     strrep(variableNames{k},'_',' ')));
