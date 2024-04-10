@@ -10,7 +10,7 @@ clear
 % add path for the create_aoi_coords function
 addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Codes'
 
-volcano_name = 'Sinabung'; %change this to volcano of interest
+volcano_name = 'Marapi'; %change this to volcano of interest
 
 modis_data_folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/LST_Inversion/'...
     ,volcano_name,'/MODIS']);
@@ -158,7 +158,7 @@ cumulative_T_j(nan_idx) = [];
 cumulative_T_k(nan_idx) = [];
 
 %% removes indexes for all variables where BT for Ti,j,k are below 240
-less_than_variable = 275;
+less_than_variable = 280;
 cumulative_T_i_lessthan_idx = find(cumulative_T_i < less_than_variable);
 
 cumulative_LST(cumulative_T_i_lessthan_idx) = [];
@@ -204,7 +204,7 @@ data = [cumulative_LST, cumulative_T_i, cumulative_T_j, cumulative_T_k];
 
 R = corrplot(data,'varNames',{'LST','tbb13','tbb14','tbb15'});
 title(['Correlation Matrix for ',volcano_name,'. N = ',...
-    num2str(length(cumulative_LST)),'. More than ',num2str(less_than_variable-273)]);
+    num2str(length(cumulative_LST)),'. >',num2str(less_than_variable-273),'C']);
 
 
 %% The Section saves the variables and figures

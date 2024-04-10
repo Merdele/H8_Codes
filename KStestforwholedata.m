@@ -12,7 +12,8 @@ Data_Folder = ...
 %------------------------Config to change-------------
 Volcano = 'Marapi';
 YYYYMM = '202311';
-DD = {'02','03','04','05','06','07','08','09'};
+DD = {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
+    '17','18','19','20','21','22'};
 DayNight = 'Night';
 
 mkdir([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
@@ -25,6 +26,11 @@ beforeFoldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{k},'_',DayNight
 afterFoldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{k+1},'_',DayNight];
 beforeMatfilename = [Volcano,'_',YYYYMM,DD{k},'_',DayNight,'.mat'];
 afterMatfilename = [Volcano,'_',YYYYMM,DD{k+1},'_',DayNight,'.mat'];
+
+% beforeFoldername = [Volcano,'_202311/',Volcano,'_20231130_',DayNight];
+% afterFoldername = [Volcano,'_202312/',Volcano,'_20231201_',DayNight];
+% beforeMatfilename = [Volcano,'_20231130_',DayNight,'.mat'];
+% afterMatfilename = [Volcano,'_20231201_',DayNight,'.mat'];
 
 % % check if file exists
 % if exist ([Data_Folder,foldername,'/',matfilename], 'file') == 0
@@ -175,8 +181,11 @@ for i = 1:length(before_variableNames)
         old_title = sprintf('%s_KS-Test between %s and %s',variableNames{i},...
             ([Volcano,'_',YYYYMM,DD{k}]),...
             ([Volcano,'_',YYYYMM,DD{k+1}]));
+            %     old_title = sprintf('%s_KS-Test between %s and %s',variableNames{i},...
+            % ([Volcano,'_20231130']),...
+            % ([Volcano,'_20231201']));
         new_title = strrep(old_title,'_',' ');
-        title(new_title)
+        title([new_title,'. N=',num2str(length(currentData))])
 
         % Save the figure as an image file (e.g., PNG)
         fig_filename = ([new_title,'.png']);
