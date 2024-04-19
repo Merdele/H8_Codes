@@ -10,10 +10,9 @@ Data_Folder = ...
 '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
 
 %------------------------Config to change-------------
-Volcano = 'Marapi';
-YYYYMM = '202311';
-DD = {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
-    '17','18','19','20','21','22'};
+Volcano = 'Sinabung';
+YYYYMM = '201906';
+DD = {'02','03','04'};
 DayNight = 'Night';
 
 mkdir([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
@@ -96,17 +95,23 @@ tbb_15_after = tbb_15;
 tbb_16_after = tbb_16;
 
 
-before_variableNames = {'tbb_07_before','tbb_08_before','tbb_09_before',...
-    'tbb_10_before','tbb_11_before','tbb_12_before','tbb_13_before',...
-    'tbb_14_before','tbb_15_before','tbb_16_before'};
+% before_variableNames = {'tbb_07_before','tbb_08_before','tbb_09_before',...
+%     'tbb_10_before','tbb_11_before','tbb_12_before','tbb_13_before',...
+%     'tbb_14_before','tbb_15_before','tbb_16_before'};
+% 
+% after_variableNames = {'tbb_07_after','tbb_08_after','tbb_09_after',...
+%     'tbb_10_after','tbb_11_after','tbb_12_after','tbb_13_after',...
+%     'tbb_14_after','tbb_15_after','tbb_16_after'};
+% 
+% variableNames = {'tbb_07','tbb_08','tbb_09',...
+%     'tbb_10','tbb_11','tbb_12','tbb_13',...
+%     'tbb_14','tbb_15','tbb_16'};
 
-after_variableNames = {'tbb_07_after','tbb_08_after','tbb_09_after',...
-    'tbb_10_after','tbb_11_after','tbb_12_after','tbb_13_after',...
-    'tbb_14_after','tbb_15_after','tbb_16_after'};
+before_variableNames = {'tbb_07_before'};
 
-variableNames = {'tbb_07','tbb_08','tbb_09',...
-    'tbb_10','tbb_11','tbb_12','tbb_13',...
-    'tbb_14','tbb_15','tbb_16'};
+after_variableNames = {'tbb_07_after'};
+
+variableNames = {'tbb_07'};
 
 
 
@@ -188,10 +193,10 @@ for i = 1:length(before_variableNames)
         title([new_title,'. N=',num2str(length(currentData))])
 
         % Save the figure as an image file (e.g., PNG)
-        fig_filename = ([new_title,'.png']);
-        saveas(gcf, fig_filename);
-
-        close
+        % fig_filename = ([new_title,'.png']);
+        % saveas(gcf, fig_filename);
+        % 
+        % close
 
 
 end

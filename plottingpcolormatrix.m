@@ -62,8 +62,10 @@ dates = startDate + days(0:length(DD)-1);
 %     'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
 %     'tbb_15_pcolor','tbb_16_pcolor'};
 
-VariableNames = {'BTD_7_13_pcolour','BTD_7_14_pcolour','BTD_7_15_pcolour',...
-    'BTD_13_14_pcolour','BTD_13_15_pcolour','BTD_14_15_pcolour',};
+% VariableNames = {'BTD_7_13_pcolour','BTD_7_14_pcolour','BTD_7_15_pcolour',...
+%     'BTD_13_14_pcolour','BTD_13_15_pcolour','BTD_14_15_pcolour'};
+
+VariableNames = {'BTD_7_14_pcolour'};
 
 for i = 1:length(VariableNames)
 
