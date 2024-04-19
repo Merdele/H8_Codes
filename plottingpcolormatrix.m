@@ -16,17 +16,17 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
 %     '26','27','28','29','30','01','02'};
 
-Volcano = 'Marapi';
-YYYYMM = '202311';
-Data_YYYYMM = '202312';
-% DD = {'12',...
-%     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
-%     '26','27'c,'28','29','30','31','01','02','03','04','05','06','07','08','09'};
-% % add one more day
-
-DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
+Volcano = 'Sinabung';
+YYYYMM = '201905';
+Data_YYYYMM = '201906';
+DD = {'12',...
     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
-    '26','27','28','29','30','01','02','03'};
+    '26','27','28','29','30','31','01','02','03','04','05','06','07','08','09'};
+% add one more day
+% 
+% DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
+%     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
+%     '26','27','28','29','30','01','02','03'};
 % add one more day
 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
@@ -41,13 +41,13 @@ DayNight = 'Night';
 
 %% This section loads the data
 
-% Matfile_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
-% Folder_Name = ([Volcano,'_',Data_YYYYMM]);
-% MatFile_Name = ([Volcano,'_',Data_YYYYMM,'_',DayNight,'_Pcolors.mat']);
-% 
-% File_To_Load = ([Matfile_Data_Folder,Folder_Name,'/',MatFile_Name]);
-% 
-% load(File_To_Load)
+Matfile_Data_Folder = '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Processed_Data/';
+Folder_Name = ([Volcano,'_',Data_YYYYMM]);
+MatFile_Name = ([Volcano,'_',Data_YYYYMM,'_',DayNight,'_BTD_Pcolors.mat']);
+
+File_To_Load = ([Matfile_Data_Folder,Folder_Name,'/',MatFile_Name]);
+
+load(File_To_Load)
 
 %% This section plots the pcolor matrix
 
@@ -62,13 +62,13 @@ DayNight = 'Night';
 startDate = datetime('2019-05-12');
 dates = startDate + days(0:length(DD)-1);
 
-VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
-    'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
-    'tbb_15_pcolor','tbb_16_pcolor'};
+% VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
+%     'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
+%     'tbb_15_pcolor','tbb_16_pcolor'};
 
-% VariableNames = {'BTD_7_13_pcolour','BTD_14_15_pcolour',...
-%     'BTD_13_15_pcolour','BTD_13_14_pcolour','BTD_7_15_pcolour','BTD_7_14_pcolour'
-% };
+VariableNames = {'BTD_7_13_pcolour','BTD_14_15_pcolour',...
+    'BTD_13_15_pcolour','BTD_13_14_pcolour','BTD_7_15_pcolour','BTD_7_14_pcolour'
+};
 
 
 for i = 1:length(VariableNames)
@@ -83,8 +83,8 @@ for i = 1:length(VariableNames)
     timeIntervals = size(myMatrix,1);  % 5 hours with data every 10 minutes
     
     %%
-    %Generate time vector from 2am to 5am 
-    startTime = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]) + hours(1);  % Start time at 2am
+    %Generate time vector from 1am to 5am 
+    startTime = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]) + hours(1);  % Start time at 1am
     endTime = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]) + hours(5);    % End time at 5am
     timeVector = linspace(startTime, endTime, timeIntervals)';
 
