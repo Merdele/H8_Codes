@@ -35,32 +35,32 @@ for h = 1:length(DD)
 % creating filenames
 foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{h},'_',DayNight];
 % foldername = [Volcano,'_2019'];
-tbbfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
-% btdfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'_BTD.mat'];
+% tbbfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
+btdfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'_BTD.mat'];
 % NTBfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_NTB.mat'];
 %stackfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_Stacked.mat'];
 
 % combining filenames and paths
 DEMfiletoread = ([DEM_Data_Folder,DEMFileName]);
-% btdfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',btdfilename]);
-tbbfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',tbbfilename]);
+btdfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',btdfilename]);
+% tbbfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',tbbfilename]);
 % NTBfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',NTBfilename]);
 %stackfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',stackfilename]);
 
 [DEM,R] = readgeoraster(DEMfiletoread,"OutputType","double");
-% load(btdfiletoread)
-load(tbbfiletoread)
+load(btdfiletoread)
+% load(tbbfiletoread)
 % load(NTBfiletoread)
 % load(stackfiletoread)
 
-mkdir([Himawari_Data_Folder,foldername,'/','DEMvsTBB_Night'])
-cd([Himawari_Data_Folder,foldername,'/DEMvsTBB_Night'])
+mkdir([Himawari_Data_Folder,foldername,'/','DEMvsBTD_Night'])
+cd([Himawari_Data_Folder,foldername,'/DEMvsBTD_Night'])
 
 % 
-variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
-    'tbb_13','tbb_14','tbb_15','tbb_16'};
-% variableNames = {'BTD_13_14','BTD_13_15','BTD_14_15','BTD_7_13','BTD_7_14',...
-% 'BTD_7_15'};
+% variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
+%     'tbb_13','tbb_14','tbb_15','tbb_16'};
+variableNames = {'BTD_13_14','BTD_13_15','BTD_14_15','BTD_7_13','BTD_7_14',...
+'BTD_7_15'};
 
 %%
 
@@ -90,7 +90,7 @@ xData = [xData;DEM(:)];
 yData = [yData;data(:)];
 
 end
-yData = yData-273;
+% yData = yData-273;
 
 % greater_than_18_index = yData >=0;
 % 

@@ -12,11 +12,11 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %---------Config to change--------
 % Change the details for the specific event - the file directory will be
 % saved according to the following variables
-Volcano = 'Sinabung';
-YYYYMM = '201905';
-DD = {'12',...
+Volcano = 'Marapi';
+YYYYMM = '202311';
+DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
-     '26','27','28','29','30','31'};
+    '26','27','28','29','30'};
 % 
 % {'01','02','03','04','05','06','07','08','09','10','11','12',...
 %     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
@@ -130,8 +130,8 @@ data_16 = [];
 end
 
 %%
-YYYYMM = '201906';
-DD = {'01','02','03','04','05','06','07','08'};
+YYYYMM = '202312';
+DD = {'01','02'};
 
 for i = 1:length(DD)
 
@@ -211,13 +211,33 @@ data_16 = [];
 
 end
 
+%adding column of min for as pcolourplot needs an additonal column of data
+tbb_07_pcolor = [tbb_07_pcolor, min(tbb_07_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+tbb_08_pcolor = [tbb_08_pcolor, min(tbb_08_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+tbb_09_pcolor = [tbb_09_pcolor, min(tbb_09_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+tbb_10_pcolor = [tbb_10_pcolor, min(tbb_10_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+tbb_11_pcolor = [tbb_11_pcolor, min(tbb_11_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+tbb_12_pcolor = [tbb_12_pcolor, min(tbb_12_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+tbb_13_pcolor = [tbb_13_pcolor, min(tbb_13_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+tbb_14_pcolor = [tbb_14_pcolor, min(tbb_14_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+tbb_15_pcolor = [tbb_15_pcolor, min(tbb_15_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+tbb_16_pcolor = [tbb_16_pcolor, min(tbb_10_pcolor(:))*ones(size(tbb_16_pcolor, 1), 1)];
+
+
+% BTD_7_13_pcolour = [BTD_7_13_pcolour, min(BTD_7_13_pcolour(:))*ones(size(BTD_7_13_pcolour, 1), 1)];
+% BTD_7_14_pcolour = [BTD_7_14_pcolour, min(BTD_7_14_pcolour(:))*ones(size(BTD_7_13_pcolour, 1), 1)];
+% BTD_7_15_pcolour = [BTD_7_15_pcolour, min(BTD_7_15_pcolour(:))*ones(size(BTD_7_13_pcolour, 1), 1)];
+% BTD_13_14_pcolour = [BTD_13_14_pcolour, min(BTD_13_14_pcolour(:))*ones(size(BTD_7_13_pcolour, 1), 1)];
+% BTD_13_15_pcolour = [BTD_13_15_pcolour, min(BTD_13_15_pcolour(:))*ones(size(BTD_7_13_pcolour, 1), 1)];
+% BTD_14_15_pcolour = [BTD_14_15_pcolour, min(BTD_14_15_pcolour(:))*ones(size(BTD_7_13_pcolour, 1), 1)];
+
 
 %%
 % Output_Folder = ([Matfile_Data_Folder,Volcano,'_',YYYYMM]);
 Output_Folder = ([Matfile_Data_Folder,'/',Volcano,'_',YYYYMM]);
 matfilename = [Volcano,'_',YYYYMM,'_',DayNight,'_Pcolors.mat'];
 
-% % specify which variables to be saved depending on what is to be read.
+% %specify which variables to be saved depending on what is to be read.
 % save([Output_Folder,'/',matfilename],"tbb_16_pcolor","tbb_15_pcolor",...
 %     "tbb_14_pcolor","tbb_13_pcolor","tbb_12_pcolor","tbb_11_pcolor",...
 %     "tbb_10_pcolor","tbb_09_pcolor","tbb_08_pcolor","tbb_07_pcolor")
