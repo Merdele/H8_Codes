@@ -9,19 +9,19 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 %---------Config to change--------
 % Change the details for the specific event - the file directory will be
 % saved according to the following variables
-% Volcano = 'Marapi';
-% YYYYMM = '202311';
-% Data_YYYYMM = '202312';
-% DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
-%     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
-%     '26','27','28','29','30','01','02'};
-
-Volcano = 'Sinabung';
-YYYYMM = '201905';
-Data_YYYYMM = '201906';
-DD = {'12',...
+Volcano = 'Marapi';
+YYYYMM = '202311';
+Data_YYYYMM = '202312';
+DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
-    '26','27','28','29','30','31','01','02','03','04','05','06','07','08','09'};
+    '26','27','28','29','30','01','02','03'};
+
+% Volcano = 'Sinabung';
+% YYYYMM = '201905';
+% Data_YYYYMM = '201906';
+% DD = {'12',...
+%     '13','14','15','16','17','18','19','20','21','22','23','24','25',...
+%     '26','27','28','29','30','31','01','02','03','04','05','06','07','08','09'};
 % add one more day
 % 
 % DD = {'01','02','03','04','05','06','07','08','09','10','11','12',...
@@ -59,17 +59,17 @@ load(File_To_Load)
 
 
 % startDate = datetime([YYYYMM(1:4),'-',YYYYMM(5:6),'-',DD{1}]);
-startDate = datetime('2019-05-12');
+startDate = datetime('2023-11-01');
 dates = startDate + days(0:length(DD)-1);
 
 % VariableNames = {'tbb_07_pcolor','tbb_08_pcolor','tbb_09_pcolor','tbb_10_pcolor',...
 %     'tbb_11_pcolor','tbb_12_pcolor','tbb_13_pcolor','tbb_14_pcolor',...
 %     'tbb_15_pcolor','tbb_16_pcolor'};
 
-VariableNames = {'BTD_7_13_pcolour','BTD_14_15_pcolour',...
-    'BTD_13_15_pcolour','BTD_13_14_pcolour','BTD_7_15_pcolour','BTD_7_14_pcolour'
-};
+VariableNames = {'BTD_7_14_pcolour'};
 
+% VariableNames = {'BTD_7_13_pcolour','BTD_7_14_pcolour','BTD_7_15_pcolour',...
+%     'BTD_13_14_pcolour','BTD_13_15_pcolour','BTD_14_15_pcolour',};
 
 for i = 1:length(VariableNames)
 
@@ -89,24 +89,26 @@ for i = 1:length(VariableNames)
     timeVector = linspace(startTime, endTime, timeIntervals)';
 
     % Plotting
-    figure
+    figure%('WindowState','maximized')
 
     % dates should have the same number of columns as myMatrix
     % timevector should have the same number of columns as myMatrix
     pcolor(dates,datetime(timeVector), myMatrix);
 
     % Set the color scheme
-    colormap('jet'); % You can replace 'jet' with any other colormap name
+    colormap(magma()); % You can replace 'jet' with any other colormap name
     %shading flat;
    
     % Customize the plot
-    title([strrep(VarName,'_',' '), ' for Mt ',Volcano]);
-    xlabel('Date');
-    ylabel('Time');
+    % title([strrep(VarName,'_',' '), ' for Mt ',Volcano]);
+    title('BTD between Band 7 and 14','FontSize', 14, 'FontName', 'Arial')
+    xlabel('Date','FontSize', 14, 'FontName', 'Arial');
+    ylabel('Time','FontSize', 14, 'FontName', 'Arial');
     colorbar;
+    ylabel(colorbar,'Celsius','FontSize', 14, 'FontName', 'Arial')
 
-    % fig_filename = ([VarName,'_for_Mt_',Volcano,'.png']);
-    % saveas(gcf, fig_filename);
-    % close
+    fig_filename = ([VarName,'_for_Mt_',Volcano,'.png']);
+    saveas(gcf, fig_filename);
+    %close
 
 end
