@@ -202,9 +202,14 @@ mEst = (X' * X)' * X' * cumulative_LST;
 % Concatenate the data into a single matrix
 data = [cumulative_LST, cumulative_T_i, cumulative_T_j, cumulative_T_k];
 
-R = corrplot(data,'varNames',{'LST','tbb13','tbb14','tbb15'});
+R = corrplot(data,'varNames',{'LST','13','14','15'});
+% title(['Correlation Matrix for ',volcano_name,'. N = ',...
+%     num2str(length(cumulative_LST)),'. >',num2str(less_than_variable-273),'C'],...
+%     'FontSize', 14, 'FontName', 'Arial');
 title(['Correlation Matrix for ',volcano_name,'. N = ',...
-    num2str(length(cumulative_LST)),'. >',num2str(less_than_variable-273),'C']);
+    num2str(length(cumulative_LST)),'. >7 C'],...
+    'FontSize', 18, 'FontName', 'Arial');
+
 
 
 %% The Section saves the variables and figures
@@ -213,13 +218,16 @@ Output_Folder = (['/Users/denny/OneDrive - Nanyang Technological University/Y4/F
 
 cd(Output_Folder)
 
+% fig_filename = (['Correlation Matrix for ',volcano_name,...
+%     ' More Than ',num2str(less_than_variable-273),'.png']);
 fig_filename = (['Correlation Matrix for ',volcano_name,...
-    ' More Than ',num2str(less_than_variable-273),'.png']);
+   '.png']);
 
-saveas(gcf, [Output_Folder,fig_filename]);
+% saveas(gcf, [Output_Folder,fig_filename]);
 
-matfilename = (['Results_of_Inversion_',volcano_name,'.mat']);
 
-% specify which variables to be saved depending on what is to be read.
-save([Output_Folder,matfilename],'mEst','cumulative_LST','cumulative_T_i',...
-    'cumulative_T_j','cumulative_T_k');
+% matfilename = (['Results_of_Inversion_',volcano_name,'.mat']);
+% 
+% % specify which variables to be saved depending on what is to be read.
+% save([Output_Folder,matfilename],'mEst','cumulative_LST','cumulative_T_i',...
+%     'cumulative_T_j','cumulative_T_k');

@@ -12,9 +12,9 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 %------------------------Config to change-------------
 
-Volcano = 'Marapi';
-YYYYMM = '202312';
-DD = {'01','02'};
+Volcano = 'Sinabung';
+YYYYMM = '201906';
+DD = {'07'};
 % {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
 %     '17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'};
 DayNight = 'Night';
@@ -35,32 +35,33 @@ for h = 1:length(DD)
 % creating filenames
 foldername = [Volcano,'_',YYYYMM,'/',Volcano,'_',YYYYMM,DD{h},'_',DayNight];
 % foldername = [Volcano,'_2019'];
-% tbbfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
-btdfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'_BTD.mat'];
+tbbfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'.mat'];
+% btdfilename = [Volcano,'_',YYYYMM,DD{h},'_',DayNight,'_BTD.mat'];
 % NTBfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_NTB.mat'];
 %stackfilename = [Volcano,'_',YYYYMM,DD,'_',DayNight,'_Stacked.mat'];
 
 % combining filenames and paths
 DEMfiletoread = ([DEM_Data_Folder,DEMFileName]);
-btdfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',btdfilename]);
-% tbbfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',tbbfilename]);
+% btdfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',btdfilename]);
+tbbfiletoread = ([Himawari_Data_Folder,'/',foldername,'/',tbbfilename]);
 % NTBfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',NTBfilename]);
 %stackfiletoread = ([Matfile_Data_Folder,'/',foldername,'/',stackfilename]);
 
 [DEM,R] = readgeoraster(DEMfiletoread,"OutputType","double");
-load(btdfiletoread)
-% load(tbbfiletoread)
+% load(btdfiletoread)
+load(tbbfiletoread)
 % load(NTBfiletoread)
 % load(stackfiletoread)
 
-mkdir([Himawari_Data_Folder,foldername,'/','DEMvsBTD_Night'])
-cd([Himawari_Data_Folder,foldername,'/DEMvsBTD_Night'])
+% mkdir([Himawari_Data_Folder,foldername,'/','DEMvsBTD_Night'])
+% cd([Himawari_Data_Folder,foldername,'/DEMvsBTD_Night'])
 
 % 
 % variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
 %     'tbb_13','tbb_14','tbb_15','tbb_16'};
-variableNames = {'BTD_13_14','BTD_13_15','BTD_14_15','BTD_7_13','BTD_7_14',...
-'BTD_7_15'};
+variableNames = {'tbb_14'};
+% variableNames = {'BTD_13_14','BTD_13_15','BTD_14_15','BTD_7_13','BTD_7_14',...
+% 'BTD_7_15'};
 
 %%
 
@@ -90,7 +91,7 @@ xData = [xData;DEM(:)];
 yData = [yData;data(:)];
 
 end
-% yData = yData-273;
+yData = yData-273;
 
 % greater_than_18_index = yData >=0;
 % 
@@ -120,12 +121,14 @@ plot(xData, fitLine, 'r-', 'LineWidth', 2);
 
 % Customize the plot
 
-title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s Temperature vs Elevation',...
-    strrep(variableNames{k},'_',' ')),'. N=',num2str(length(yData))]);
+% title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s Temperature vs Elevation',...
+%     strrep(variableNames{k},'_',' ')),'. N=',num2str(length(yData))]);
+title(['7 June 2019 Mount Sinabung Band 14 Temperature vs Elevation. N=',num2str(length(yData))],...
+    'FontSize', 14, 'FontName', 'Arial');
 % title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
 %     strrep(variableNames{k},'_',' ')));
-xlabel('Elevation');
-ylabel('Brightness Temperature (Celsius)');
+xlabel('Elevation','FontSize', 14, 'FontName', 'Arial');
+ylabel('Brightness Temperature (Celsius)','FontSize', 14, 'FontName', 'Arial');
 legend('Data Points', 'Least Squares Fit','Location','best');
 
 hold off;

@@ -12,11 +12,11 @@ Data_Folder = ...
 %------------------------Config to change-------------
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = {'02','03','04'};
+DD = {'03','04'};
 DayNight = 'Night';
 
-mkdir([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
-cd([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
+% mkdir([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
+% cd([Data_Folder,'/',Volcano,'_',YYYYMM,'/NIGHT_KSTEST'])
 
 %------------------------------------------------------
 for k = 1:length(DD)-1
@@ -180,9 +180,9 @@ for i = 1:length(before_variableNames)
         plot(x1, ecdf1, 'b', 'LineWidth', 2);
         hold on;
         plot(x2, ecdf2, 'r', 'LineWidth', 2);
-        legend('Day Before', 'Day After','Location','best');
-        xlabel('Brightness Temperature (Celsius)');
-        ylabel('CDF Value');
+        legend('3 June 2019', '4 June 2019','Location','best');
+        xlabel('Brightness Temperature (Celsius)','FontSize', 14, 'FontName', 'Arial');
+        ylabel('CDF Value','FontSize', 14, 'FontName', 'Arial');
         old_title = sprintf('%s_KS-Test between %s and %s',variableNames{i},...
             ([Volcano,'_',YYYYMM,DD{k}]),...
             ([Volcano,'_',YYYYMM,DD{k+1}]));
@@ -190,13 +190,16 @@ for i = 1:length(before_variableNames)
             % ([Volcano,'_20231130']),...
             % ([Volcano,'_20231201']));
         new_title = strrep(old_title,'_',' ');
-        title([new_title,'. N=',num2str(length(currentData))])
+        % title([new_title,'. N=',num2str(length(currentData))],...
+        %     'FontSize', 14, 'FontName', 'Arial')
+        title(['KS-Test for Band 7. N=',num2str(length(currentData))],...
+            'FontSize', 14, 'FontName', 'Arial')
 
         % Save the figure as an image file (e.g., PNG)
-        % fig_filename = ([new_title,'.png']);
-        % saveas(gcf, fig_filename);
-        % 
-        % close
+        fig_filename = ([new_title,'.png']);
+        saveas(gcf, fig_filename);
+
+        close
 
 
 end
