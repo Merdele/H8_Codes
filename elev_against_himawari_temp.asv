@@ -14,7 +14,7 @@ addpath '/Users/denny/OneDrive - Nanyang Technological University/Y4/FYP/H8_Code
 
 Volcano = 'Sinabung';
 YYYYMM = '201906';
-DD = {'03'};
+DD = {'07'};
 % {'01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16',...
 %     '17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'};
 DayNight = 'Night';
@@ -59,7 +59,7 @@ load(tbbfiletoread)
 % 
 % variableNames = {'tbb_07','tbb_08','tbb_09','tbb_10','tbb_11','tbb_12',...
 %     'tbb_13','tbb_14','tbb_15','tbb_16'};
-variableNames = {'tbb_07'};
+variableNames = {'tbb_14'};
 % variableNames = {'BTD_13_14','BTD_13_15','BTD_14_15','BTD_7_13','BTD_7_14',...
 % 'BTD_7_15'};
 
@@ -114,6 +114,23 @@ scatter(xData, yData);
 fitLine = polyval(coefficients, xData);
 plot(xData, fitLine, 'r-', 'LineWidth', 2);
 
+% % Plot the linear fit line
+% xFit = linspace(min(xData), max(xData), 100);
+% yFit = predict(mdl, xFit');
+% plot(xFit, yFit, 'r-', 'LineWidth', 2, 'DisplayName', 'Linear Fit');
+
+% Customize the plot
+
+% title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s Temperature vs Elevation',...
+%     strrep(variableNames{k},'_',' ')),'. N=',num2str(length(yData))]);
+title(['7 June 2019 Mount Sinabung Band 14 Temperature vs Elevation. N=',num2str(length(yData))],...
+    'FontSize', 14, 'FontName', 'Arial');
+% title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
+%     strrep(variableNames{k},'_',' ')));
+xlabel('Elevation','FontSize', 14, 'FontName', 'Arial');
+ylabel('Brightness Temperature (Celsius)','FontSize', 14, 'FontName', 'Arial');
+legend('Data Points', 'Least Squares Fit','Location','best');
+
 %% Adding expected temp gradient line
 % Original data points
 x1 = 2460;
@@ -129,36 +146,17 @@ b = y1 - m * x1;
 
 % Define x range for plotting the line
 % Use a broader range if necessary to cover all existing data
-x = linspace(min(min(DEM)), max(max(DEM)), 100);
+x = linspace(min(x1, x2), max(x1, x2), 100);
 
 % Calculate y values corresponding to x
-y = m * x + b - 12.5;
-plot(x, y,'k-','LineWidth',2)
-
-% % Plot the linear fit line
-% xFit = linspace(min(xData), max(xData), 100);
-% yFit = predict(mdl, xFit');
-% plot(xFit, yFit, 'r-', 'LineWidth', 2, 'DisplayName', 'Linear Fit');
-
-% Customize the plot
-
-% title([Volcano,' ',YYYYMM,DD{h},sprintf(' %s Temperature vs Elevation',...
-%     strrep(variableNames{k},'_',' ')),'. N=',num2str(length(yData))]);
-title(['3 June 2019 Mount Sinabung Band 7 Temperature vs Elevation. N=',num2str(length(yData))],...
-    'FontSize', 14, 'FontName', 'Arial');
-% title(sprintf('Scatter Plot of Temperature %s vs Elevation',...
-%     strrep(variableNames{k},'_',' ')));
-xlabel('Elevation','FontSize', 14, 'FontName', 'Arial');
-ylabel('Brightness Temperature (Celsius)','FontSize', 14, 'FontName', 'Arial');
-legend('Data Points', 'Best Fit Line','Expected Gradient','Location','best');
-
-
+y = m * x + b;
+plot(x, y)
 
 hold off;
 
-fig_filename = ([strrep(variableNames{k},'_',' '),' TempvsElev.png']);
-saveas(gcf, fig_filename);
-close
+% fig_filename = ([strrep(variableNames{k},'_',' '),' TempvsElev.png']);
+% saveas(gcf, fig_filename);
+% close
 
 
 end
